@@ -1,0 +1,1 @@
+gcloud alpha monitoring policies create --project prj-monitoring-infra --policy-from-file
