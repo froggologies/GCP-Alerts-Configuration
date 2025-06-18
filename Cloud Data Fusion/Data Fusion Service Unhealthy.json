@@ -1,0 +1,46 @@
+{
+    "displayName": "Data Fusion Service Unhealthy",
+    "documentation": {
+        "content": "Detect if any Data Fusion service is no longer reachable.",
+        "mimeType": "text/markdown"
+    },
+    "userLabels": {
+        "resource": "Cloud Data Fusion"
+    },
+    "conditions": [
+        {
+            "displayName": "Cloud Data Fusion Instance - Service status",
+            "conditionThreshold": {
+                "filter": "resource.type = \"datafusion.googleapis.com/InstanceV2\" AND metric.type = \"datafusion.googleapis.com/instance/v2/service_available\"",
+                "aggregations": [
+                    {
+                        "alignmentPeriod": "300s",
+                        "crossSeriesReducer": "REDUCE_MEAN",
+                        "groupByFields": [
+                            "metric.label.service",
+                            "resource.label.instance_id"
+                        ],
+                        "perSeriesAligner": "ALIGN_FRACTION_TRUE"
+                    }
+                ],
+                "comparison": "COMPARISON_LT",
+                "duration": "0s",
+                "trigger": {
+                    "count": 1
+                },
+                "thresholdValue": 0
+            }
+        }
+    ],
+    "alertStrategy": {
+        "autoClose": "86400s",
+        "notificationPrompts": [
+            "OPENED",
+            "CLOSED"
+        ]
+    },
+    "combiner": "OR",
+    "enabled": true,
+    "notificationChannels": [],
+    "severity": "CRITICAL"
+}
