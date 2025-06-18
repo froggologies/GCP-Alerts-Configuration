@@ -1,0 +1,48 @@
+{
+    "displayName": "All BGP sessions down - Per peer",
+    "documentation": {
+        "content": "If all BGP sessions are down, your Cloud Router has no BGP neighbors to exchange routes with, effectively isolating it from connected networks (on-premises, other VPCs).",
+        "mimeType": "text/markdown"
+    },
+    "userLabels": {
+        "resource": "cloud-router"
+    },
+    "conditions": [
+        {
+            "displayName": "Cloud Router - BGP session status",
+            "conditionThreshold": {
+                "filter": "resource.type = \"gce_router\" AND metric.type = \"router.googleapis.com/bgp/session_up\"",
+                "aggregations": [
+                    {
+                        "alignmentPeriod": "300s",
+                        "crossSeriesReducer": "REDUCE_SUM",
+                        "groupByFields": [
+                            "metric.label.bgp_peer_name",
+                            "resource.label.project_id"
+                        ],
+                        "perSeriesAligner": "ALIGN_MEAN"
+                    }
+                ],
+                "comparison": "COMPARISON_LT",
+                "duration": "0s",
+                "trigger": {
+                    "count": 1
+                },
+                "thresholdValue": 0
+            }
+        }
+    ],
+    "alertStrategy": {
+        "autoClose": "86400s",
+        "notificationPrompts": [
+            "OPENED",
+            "CLOSED"
+        ]
+    },
+    "combiner": "OR",
+    "enabled": true,
+    "notificationChannels": [
+        "projects/prj-monitoring-infra/notificationChannels/8680880127347088967"
+    ],
+    "severity": "CRITICAL"
+}
