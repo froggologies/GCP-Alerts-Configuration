@@ -1,5 +1,5 @@
 {
-    "displayName": "Router is down",
+    "displayName": "Router Instance Unhealthy",
     "documentation": {
         "content": "This indicates your Cloud Router is offline and routing is completely impacted.",
         "mimeType": "text/markdown"
