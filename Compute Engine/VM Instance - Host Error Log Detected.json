@@ -21,8 +21,7 @@
     },
     "autoClose": "86400s",
     "notificationPrompts": [
-      "OPENED",
-      "CLOSED"
+      "OPENED"
     ]
   },
   "combiner": "OR",
