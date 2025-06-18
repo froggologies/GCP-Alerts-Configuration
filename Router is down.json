@@ -1,0 +1,46 @@
+{
+    "displayName": "Router is down",
+    "documentation": {
+        "content": "This indicates your Cloud Router is offline and routing is completely impacted.",
+        "mimeType": "text/markdown"
+    },
+    "userLabels": {},
+    "conditions": [
+        {
+            "displayName": "Router Availability",
+            "conditionThreshold": {
+                "filter": "resource.type = \"gce_router\" AND metric.type = \"router.googleapis.com/router_up\"",
+                "aggregations": [
+                    {
+                        "alignmentPeriod": "300s",
+                        "crossSeriesReducer": "REDUCE_MEAN",
+                        "groupByFields": [
+                            "resource.label.project_id",
+                            "resource.label.router_id",
+                            "metadata.system_labels.name"
+                        ],
+                        "perSeriesAligner": "ALIGN_MEAN"
+                    }
+                ],
+                "comparison": "COMPARISON_LT",
+                "duration": "0s",
+                "trigger": {
+                    "count": 1
+                }
+            }
+        }
+    ],
+    "alertStrategy": {
+        "autoClose": "86400s",
+        "notificationPrompts": [
+            "OPENED",
+            "CLOSED"
+        ]
+    },
+    "combiner": "OR",
+    "enabled": true,
+    "notificationChannels": [
+        "projects/prj-monitoring-infra/notificationChannels/8680880127347088967"
+    ],
+    "severity": "CRITICAL"
+}
