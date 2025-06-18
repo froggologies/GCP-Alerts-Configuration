@@ -1,0 +1,41 @@
+{
+    "displayName": "HDFS capacity is less than 100 GB",
+    "documentation": {
+        "content": "Alert when HDFS capacity crosses 100 GB threshold. If you want the alert to fire when the HDFS capacity crosses the 200 GB threshold, set the threshold value to 200 GB.",
+        "mimeType": "text/markdown"
+    },
+    "userLabels": {
+        "resource": "Dataproc - Clusters"
+    },
+    "conditions": [
+        {
+            "displayName": "HDFS capacity is less than 100 GB",
+            "conditionThreshold": {
+                "filter": "metric.type=\"dataproc.googleapis.com/cluster/hdfs/storage_capacity\" AND resource.type=\"cloud_dataproc_cluster\"",
+                "comparison": "COMPARISON_GT",
+                "thresholdValue": 100,
+                "duration": "300s",
+                "trigger": {
+                    "count": 1
+                },
+                "aggregations": [
+                    {
+                        "alignmentPeriod": "300s",
+                        "perSeriesAligner": "ALIGN_MEAN"
+                    }
+                ]
+            }
+        }
+    ],
+    "alertStrategy": {
+        "autoClose": "86400s",
+        "notificationPrompts": [
+            "OPENED",
+            "CLOSED"
+        ]
+    },
+    "combiner": "OR",
+    "enabled": true,
+    "notificationChannels": [],
+    "severity": "WARNING"
+}
