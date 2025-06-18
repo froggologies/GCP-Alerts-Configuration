@@ -37,5 +37,5 @@
     "combiner": "OR",
     "enabled": true,
     "notificationChannels": [],
-    "severity": "CRITICAL"
+    "severity": "WARNING"
 }
