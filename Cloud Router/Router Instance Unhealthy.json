@@ -4,7 +4,9 @@
         "content": "This indicates your Cloud Router is offline and routing is completely impacted.",
         "mimeType": "text/markdown"
     },
-    "userLabels": {},
+    "userLabels": {
+        "resource": "cloud-router"
+    },
     "conditions": [
         {
             "displayName": "Router Availability",

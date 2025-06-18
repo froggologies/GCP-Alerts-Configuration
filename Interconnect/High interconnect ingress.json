@@ -4,7 +4,9 @@
     "content": "Alerts when the Ingress bytes per second exceeds 70% of an interconnect VLAN attachment's capacity. This can help you decide whether to provision additional capacity or create additional attachments.",
     "mimeType": "text/markdown"
   },
-  "userLabels": {},
+  "userLabels": {
+        "resource": "Interconnect"
+    },
   "conditions": [
     {
       "displayName": "VLAN attachment ingress usage",

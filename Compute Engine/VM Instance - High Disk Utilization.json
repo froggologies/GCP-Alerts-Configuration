@@ -4,7 +4,9 @@
     "content": "This alert fires when the disk utilization on any VM instance in the project rises above 95% for 5 minutes or more.",
     "mimeType": "text/markdown"
   },
-  "userLabels": {},
+  "userLabels": {
+        "resource": "Compute Engine"
+    },
   "conditions": [
     {
       "displayName": "VM Instance - High disk utilization",
