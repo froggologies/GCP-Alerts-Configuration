@@ -1,0 +1,40 @@
+{
+    "displayName": "Any CREATE_CLUSTER operation took more than 20 minutes",
+    "documentation": {
+        "content": "This alert indicates that any cluster creation took more than 20 minutes.",
+        "mimeType": "text/markdown"
+      },
+      "userLabels": {
+            "resource": "Dataproc - Clusters"
+        },
+    "conditions": [
+      {
+        "displayName": "Any CREATE_CLUSTER operation took more than 20 minutes",
+        "conditionAbsent": {
+          "filter": "metric.type=\"dataproc.googleapis.com/cluster/operation/completion_time\" AND resource.type=\"cloud_dataproc_cluster\"",
+          "duration": "1200s",
+          "trigger": {
+            "count": 1
+          },
+          "aggregations": [
+            {
+              "alignmentPeriod": "60s",
+              "crossSeriesReducer": "REDUCE_SUM",
+              "perSeriesAligner": "ALIGN_SUM"
+            }
+          ]
+        }
+      }
+    ],
+    "alertStrategy": {
+    "autoClose": "86400s",
+    "notificationPrompts": [
+      "OPENED",
+      "CLOSED"
+    ]
+  },
+    "combiner": "OR",
+    "enabled": true,
+    "notificationChannels": [],
+    "severity": "WARNING"
+  }
