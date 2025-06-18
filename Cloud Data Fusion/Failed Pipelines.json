@@ -1,0 +1,47 @@
+{
+    "displayName": "Failed Pipelines",
+    "documentation": {
+        "content": "This policy triggers an alert when a Data Fusion pipeline execution fails. It helps in promptly identifying and addressing pipeline failures to ensure data processing continuity.",
+        "mimeType": "text/markdown"
+    },
+    "userLabels": {
+        "resource": "Cloud Data Fusion"
+    },
+    "conditions": [
+        {
+            "displayName": "Failed Pipelines",
+            "conditionThreshold": {
+                "filter": "resource.type = \"logging_bucket\" AND metric.type = \"logging.googleapis.com/user/pipeline_logs\" AND metric.labels.Message = monitoring.regex.full_match(\"^Pipeline.*failed.*\")",
+                "aggregations": [
+                    {
+                        "alignmentPeriod": "60s",
+                        "crossSeriesReducer": "REDUCE_SUM",
+                        "groupByFields": [
+                            "metric.label.Pipeline",
+                            "metric.label.Project",
+                            "metric.label.Namespace"
+                        ],
+                        "perSeriesAligner": "ALIGN_RATE"
+                    }
+                ],
+                "comparison": "COMPARISON_GT",
+                "duration": "0s",
+                "trigger": {
+                    "count": 1
+                },
+                "thresholdValue": 0
+            }
+        }
+    ],
+    "alertStrategy": {
+        "autoClose": "86400s",
+        "notificationPrompts": [
+            "OPENED",
+            "CLOSED"
+        ]
+    },
+    "combiner": "OR",
+    "enabled": true,
+    "notificationChannels": [],
+    "severity": "ERROR"
+}
