@@ -5,8 +5,8 @@
     "mimeType": "text/markdown"
   },
   "userLabels": {
-        "resource": "Compute Engine"
-    },
+    "resource": "compute-engine"
+  },
   "conditions": [
     {
       "displayName": "Log match condition",

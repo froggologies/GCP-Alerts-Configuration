@@ -1,41 +1,41 @@
 {
-    "displayName": "YARN pending memory is above 0 GB for 10 minutes",
-    "documentation": {
-        "content": "Alert when pending memory in a cluster is above 0 GB. If you want the alert to fire when the pending memory is above 1 GB, set the threshold value to 1 GB.",
-        "mimeType": "text/markdown"
-    },
-    "userLabels": {
-        "resource": "Dataproc - Clusters"
-    },
-    "conditions": [
-        {
-            "displayName": "YARN pending memory is above 0 GB for 10 minutes",
-            "conditionThreshold": {
-                "filter": "metric.type=\"dataproc.googleapis.com/cluster/yarn/memory_size\" AND resource.type=\"cloud_dataproc_cluster\"",
-                "comparison": "COMPARISON_GT",
-                "thresholdValue": 0,
-                "duration": "600s",
-                "trigger": {
-                    "count": 1
-                },
-                "aggregations": [
-                    {
-                        "alignmentPeriod": "300s",
-                        "perSeriesAligner": "ALIGN_MEAN"
-                    }
-                ]
-            }
-        }
-    ],
-    "alertStrategy": {
-        "autoClose": "86400s",
-        "notificationPrompts": [
-            "OPENED",
-            "CLOSED"
+  "displayName": "YARN pending memory is above 0 GB for 10 minutes",
+  "documentation": {
+    "content": "Alert when pending memory in a cluster is above 0 GB. If you want the alert to fire when the pending memory is above 1 GB, set the threshold value to 1 GB.",
+    "mimeType": "text/markdown"
+  },
+  "userLabels": {
+		"resource": "dataproc-clusters"
+	},
+  "conditions": [
+    {
+      "displayName": "YARN pending memory is above 0 GB for 10 minutes",
+      "conditionThreshold": {
+        "filter": "metric.type=\"dataproc.googleapis.com/cluster/yarn/memory_size\" AND resource.type=\"cloud_dataproc_cluster\"",
+        "comparison": "COMPARISON_GT",
+        "thresholdValue": 0,
+        "duration": "600s",
+        "trigger": {
+          "count": 1
+        },
+        "aggregations": [
+          {
+            "alignmentPeriod": "300s",
+            "perSeriesAligner": "ALIGN_MEAN"
+          }
         ]
-    },
-    "combiner": "OR",
-    "enabled": true,
-    "notificationChannels": [],
-    "severity": "WARNING"
+      }
+    }
+  ],
+  "alertStrategy": {
+    "autoClose": "86400s",
+    "notificationPrompts": [
+      "OPENED",
+      "CLOSED"
+    ]
+  },
+  "combiner": "OR",
+  "enabled": true,
+  "notificationChannels": [],
+  "severity": "WARNING"
 }
