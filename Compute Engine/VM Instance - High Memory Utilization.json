@@ -37,8 +37,6 @@
     },
     "combiner": "OR",
     "enabled": true,
-    "notificationChannels": [
-        "projects/prj-monitoring-infra/notificationChannels/8680880127347088967"
-    ],
+    "notificationChannels": [],
     "severity": "CRITICAL"
 }
