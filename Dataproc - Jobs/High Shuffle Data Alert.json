@@ -1,0 +1,41 @@
+{
+  "displayName": "High Shuffle Data Alert",
+  "documentation": {
+    "content": "This alert indicates that the job is spilling data to disk. This alert is generally used to alert when adding more memory could speed up a job. The threshold is measured in bytes.",
+    "mimeType": "text/markdown"
+  },
+  "userLabels": {
+    "resource": "dataproc-jobs"
+  },
+  "conditions": [
+    {
+      "displayName": "High Shuffle Data Alert",
+      "conditionThreshold": {
+        "filter": "metric.type=\"custom.googleapis.com/spark/executor/diskBytesSpilled\" AND resource.type=\"cloud_dataproc_cluster\"",
+        "comparison": "COMPARISON_GT",
+        "thresholdValue": 1073741824,
+        "duration": "300s",
+        "trigger": {
+          "count": 1
+        },
+        "aggregations": [
+          {
+            "alignmentPeriod": "300s",
+            "perSeriesAligner": "ALIGN_MEAN"
+          }
+        ]
+      }
+    }
+  ],
+  "alertStrategy": {
+    "autoClose": "86400s",
+    "notificationPrompts": [
+      "OPENED",
+      "CLOSED"
+    ]
+  },
+  "combiner": "OR",
+  "enabled": true,
+  "notificationChannels": [],
+  "severity": "WARNING"
+}
