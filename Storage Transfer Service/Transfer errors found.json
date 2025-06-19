@@ -1,0 +1,45 @@
+{
+  "displayName": "Transfer errors found",
+  "documentation": {
+    "content": "Indicates potential issues with source data, permissions, network, or destination. Even if the job eventually succeeds, many errors can slow it down or indicate underlying problems.",
+    "mimeType": "text/markdown"
+  },
+  "userLabels": {
+    "resource": "storage-transfer-service"
+  },
+  "conditions": [
+    {
+      "displayName": "Cloud Storage Transfer Job - Error count",
+      "conditionThreshold": {
+        "filter": "resource.type = \"storage_transfer_job\" AND metric.type = \"storagetransfer.googleapis.com/transferjob/error_count\"",
+        "aggregations": [
+          {
+            "alignmentPeriod": "300s",
+            "crossSeriesReducer": "REDUCE_SUM",
+            "groupByFields": [
+              "resource.label.project_id"
+            ],
+            "perSeriesAligner": "ALIGN_RATE"
+          }
+        ],
+        "comparison": "COMPARISON_GT",
+        "duration": "0s",
+        "trigger": {
+          "count": 1
+        },
+        "thresholdValue": 0
+      }
+    }
+  ],
+  "alertStrategy": {
+    "autoClose": "86400s",
+    "notificationPrompts": [
+      "OPENED",
+      "CLOSED"
+    ]
+  },
+  "combiner": "OR",
+  "enabled": true,
+  "notificationChannels": [],
+  "severity": "ERROR"
+}
