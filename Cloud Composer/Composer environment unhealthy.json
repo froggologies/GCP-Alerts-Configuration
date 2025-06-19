@@ -1,0 +1,45 @@
+{
+  "displayName": "Composer environment unhealthy",
+  "documentation": {
+    "content": "This alert fires when the overall Cloud Composer environment health is marked as unhealthy. It could be due to failures in one or more components (scheduler, web server, database, etc.). Check the individual services and logs in the Airflow UI or Cloud Logging for more detailed info.",
+    "mimeType": "text/markdown"
+  },
+  "userLabels": {
+    "resource": "cloud-composer"
+  },
+  "conditions": [
+    {
+      "displayName": "Composer environment unhealthy",
+      "conditionThreshold": {
+        "filter": "resource.type = \"cloud_composer_environment\" AND metric.type = \"composer.googleapis.com/environment/healthy\"",
+        "aggregations": [
+          {
+            "alignmentPeriod": "60s",
+            "crossSeriesReducer": "REDUCE_SUM",
+            "groupByFields": [
+              "resource.label.environment_name"
+            ],
+            "perSeriesAligner": "ALIGN_COUNT_TRUE"
+          }
+        ],
+        "comparison": "COMPARISON_LT",
+        "duration": "0s",
+        "trigger": {
+          "count": 1
+        },
+        "thresholdValue": 0
+      }
+    }
+  ],
+  "alertStrategy": {
+    "autoClose": "86400s",
+    "notificationPrompts": [
+      "OPENED",
+      "CLOSED"
+    ]
+  },
+  "combiner": "OR",
+  "enabled": true,
+  "notificationChannels": [],
+  "severity": "CRITICAL"
+}
