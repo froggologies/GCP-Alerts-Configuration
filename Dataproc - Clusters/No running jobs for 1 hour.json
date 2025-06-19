@@ -1,41 +1,41 @@
 {
-	"displayName": "No running jobs for 1 hour",
-	"documentation": {
-		"content": "This alert indicates that the cluster is idle for an hour.",
-		"mimeType": "text/markdown"
-	},
-	"userLabels": {
-		"resource": "dataproc-clusters"
-	},
-	"conditions": [
-		{
-			"displayName": "No running jobs for 1 hour",
-			"conditionThreshold": {
-				"filter": "metric.type=\"dataproc.googleapis.com/cluster/job/running_count\" AND resource.type=\"cloud_dataproc_cluster\"",
-				"comparison": "COMPARISON_LT",
-				"thresholdValue": 0,
-				"duration": "3600s",
-				"trigger": {
-					"count": 1
-				},
-				"aggregations": [
-					{
-						"alignmentPeriod": "300s",
-						"perSeriesAligner": "ALIGN_MEAN"
-					}
-				]
-			}
-		}
-	],
-	"alertStrategy": {
-		"autoClose": "86400s",
-		"notificationPrompts": [
-			"OPENED",
-			"CLOSED"
-		]
-	},
-	"combiner": "OR",
-	"enabled": true,
-	"notificationChannels": [],
-	"severity": "WARNING"
+  "displayName": "No running jobs for 1 hour",
+  "documentation": {
+    "content": "This alert indicates that the cluster is idle for an hour.",
+    "mimeType": "text/markdown"
+  },
+  "userLabels": {
+    "resource": "dataproc-clusters"
+  },
+  "conditions": [
+    {
+      "displayName": "No running jobs for 1 hour",
+      "conditionThreshold": {
+        "filter": "metric.type=\"dataproc.googleapis.com/cluster/job/running_count\" AND resource.type=\"cloud_dataproc_cluster\"",
+        "comparison": "COMPARISON_LT",
+        "thresholdValue": 0,
+        "duration": "3600s",
+        "trigger": {
+          "count": 1
+        },
+        "aggregations": [
+          {
+            "alignmentPeriod": "300s",
+            "perSeriesAligner": "ALIGN_MEAN"
+          }
+        ]
+      }
+    }
+  ],
+  "alertStrategy": {
+    "autoClose": "86400s",
+    "notificationPrompts": [
+      "OPENED",
+      "CLOSED"
+    ]
+  },
+  "combiner": "OR",
+  "enabled": true,
+  "notificationChannels": [],
+  "severity": "WARNING"
 }
