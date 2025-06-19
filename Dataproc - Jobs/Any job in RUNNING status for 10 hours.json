@@ -1,0 +1,40 @@
+{
+  "displayName": "Any job in RUNNING status for 10 hours",
+  "documentation": {
+    "content": "This alert indicates that the job is in running status for 10 hours. If you want the alert to fire when the job is in running status for 20 hours, set the threshold value to 72000s.",
+    "mimeType": "text/markdown"
+  },
+  "userLabels": {
+    "resource": "dataproc-clusters"
+  },
+  "conditions": [
+    {
+      "displayName": "Any job in RUNNING status for 10 hours",
+      "conditionAbsent": {
+        "filter": "metric.type=\"dataproc.googleapis.com/cluster/job/duration\" AND resource.type=\"cloud_dataproc_cluster\" AND metric.labels.state=\"RUNNING\"",
+        "duration": "36000s",
+        "trigger": {
+          "count": 1
+        },
+        "aggregations": [
+          {
+            "alignmentPeriod": "60s",
+            "crossSeriesReducer": "REDUCE_SUM",
+            "perSeriesAligner": "ALIGN_SUM"
+          }
+        ]
+      }
+    }
+  ],
+  "alertStrategy": {
+    "autoClose": "86400s",
+    "notificationPrompts": [
+      "OPENED",
+      "CLOSED"
+    ]
+  },
+  "combiner": "OR",
+  "enabled": true,
+  "notificationChannels": [],
+  "severity": "WARNING"
+}
