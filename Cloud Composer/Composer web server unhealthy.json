@@ -1,0 +1,45 @@
+{
+  "displayName": "Composer web server unhealthy",
+  "documentation": {
+    "content": "The web server is not reachable or responding. This can prevent access to the Airflow UI. Might be due to resource exhaustion, network issues, or internal errors. Check Composer logs and VM health, and try a restart if needed.",
+    "mimeType": "text/markdown"
+  },
+  "userLabels": {
+    "resource": "cloud-composer"
+  },
+  "conditions": [
+    {
+      "displayName": "Composer web server unhealthy",
+      "conditionThreshold": {
+        "filter": "resource.type = \"cloud_composer_environment\" AND metric.type = \"composer.googleapis.com/environment/web_server/health\"",
+        "aggregations": [
+          {
+            "alignmentPeriod": "60s",
+            "crossSeriesReducer": "REDUCE_SUM",
+            "groupByFields": [
+              "resource.label.environment_name"
+            ],
+            "perSeriesAligner": "ALIGN_COUNT_TRUE"
+          }
+        ],
+        "comparison": "COMPARISON_LT",
+        "duration": "0s",
+        "trigger": {
+          "count": 1
+        },
+        "thresholdValue": 0.1
+      }
+    }
+  ],
+  "alertStrategy": {
+    "autoClose": "86400s",
+    "notificationPrompts": [
+      "OPENED",
+      "CLOSED"
+    ]
+  },
+  "combiner": "OR",
+  "enabled": true,
+  "notificationChannels": [],
+  "severity": "CRITICAL"
+}
