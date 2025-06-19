@@ -1,0 +1,45 @@
+{
+  "displayName": "Composer database unhealthy",
+  "documentation": {
+    "content": "The underlying database backing Airflow is not healthy. This could break task status updates, DAG runs, and Airflow’s core functionality. Check metrics like CPU/memory/disk for the database, and inspect logs in the database component.",
+    "mimeType": "text/markdown"
+  },
+  "userLabels": {
+    "resource": "cloud-composer"
+  },
+  "conditions": [
+    {
+      "displayName": "Composer database unhealthy",
+      "conditionThreshold": {
+        "filter": "resource.type = \"cloud_composer_environment\" AND metric.type = \"composer.googleapis.com/environment/database_health\"",
+        "aggregations": [
+          {
+            "alignmentPeriod": "60s",
+            "crossSeriesReducer": "REDUCE_SUM",
+            "groupByFields": [
+              "resource.label.environment_name"
+            ],
+            "perSeriesAligner": "ALIGN_COUNT_TRUE"
+          }
+        ],
+        "comparison": "COMPARISON_LT",
+        "duration": "0s",
+        "trigger": {
+          "count": 1
+        },
+        "thresholdValue": 1
+      }
+    }
+  ],
+  "alertStrategy": {
+    "autoClose": "86400s",
+    "notificationPrompts": [
+      "OPENED",
+      "CLOSED"
+    ]
+  },
+  "combiner": "OR",
+  "enabled": true,
+  "notificationChannels": [],
+  "severity": "CRITICAL"
+}
