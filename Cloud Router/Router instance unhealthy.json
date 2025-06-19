@@ -29,7 +29,7 @@
                 "trigger": {
                     "count": 1
                 },
-                "thresholdValue": 0
+                "thresholdValue": 1
             }
         }
     ],
