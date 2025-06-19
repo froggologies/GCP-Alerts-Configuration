@@ -1,5 +1,5 @@
 {
-    "displayName": "Failed Pipelines",
+    "displayName": "Failed pipelines",
     "documentation": {
         "content": "This policy triggers an alert when a Data Fusion pipeline execution fails. It helps in promptly identifying and addressing pipeline failures to ensure data processing continuity.",
         "mimeType": "text/markdown"
@@ -9,7 +9,7 @@
     },
     "conditions": [
         {
-            "displayName": "Failed Pipelines",
+            "displayName": "Failed pipelines",
             "conditionThreshold": {
                 "filter": "resource.type = \"logging_bucket\" AND metric.type = \"logging.googleapis.com/user/pipeline_logs\" AND metric.labels.Message = monitoring.regex.full_match(\"^Pipeline.*failed.*\")",
                 "aggregations": [

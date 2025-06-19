@@ -1,5 +1,5 @@
 {
-    "displayName": "Data Fusion Service Unhealthy",
+    "displayName": "Data Fusion service unhealthy",
     "documentation": {
         "content": "Detect if any Data Fusion service is no longer reachable.",
         "mimeType": "text/markdown"
@@ -9,7 +9,7 @@
     },
     "conditions": [
         {
-            "displayName": "Cloud Data Fusion Instance - Service status",
+            "displayName": "Cloud Data Fusion instance - Service status",
             "conditionThreshold": {
                 "filter": "resource.type = \"datafusion.googleapis.com/InstanceV2\" AND metric.type = \"datafusion.googleapis.com/instance/v2/service_available\"",
                 "aggregations": [
@@ -28,7 +28,7 @@
                 "trigger": {
                     "count": 1
                 },
-                "thresholdValue": 0
+                "thresholdValue": 1
             }
         }
     ],

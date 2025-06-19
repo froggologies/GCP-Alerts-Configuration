@@ -1,5 +1,5 @@
 {
-  "displayName": "VM Instance - High Memory Utilization",
+  "displayName": "VM instance - High memory utilization",
   "documentation": {
     "content": "This alert fires when the memory utilization on any VM instance in the project rises above 90% for 5 minutes or more.",
     "mimeType": "text/markdown"
@@ -9,7 +9,7 @@
   },
   "conditions": [
     {
-      "displayName": "VM Instance - High memory utilization",
+      "displayName": "VM instance - High memory utilization",
       "conditionThreshold": {
         "filter": "resource.type = \"gce_instance\" AND metric.type = \"agent.googleapis.com/memory/percent_used\" AND metric.labels.state = \"used\" AND metadata.user_labels.monitoring-target = \"true\"",
         "aggregations": [

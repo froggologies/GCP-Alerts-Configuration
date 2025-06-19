@@ -1,5 +1,5 @@
 {
-    "displayName": "Router Instance Unhealthy",
+    "displayName": "Router instance unhealthy",
     "documentation": {
         "content": "This indicates your Cloud Router is offline and routing is completely impacted.",
         "mimeType": "text/markdown"
@@ -9,7 +9,7 @@
     },
     "conditions": [
         {
-            "displayName": "Router Availability",
+            "displayName": "Router availability",
             "conditionThreshold": {
                 "filter": "resource.type = \"gce_router\" AND metric.type = \"router.googleapis.com/router_up\"",
                 "aggregations": [

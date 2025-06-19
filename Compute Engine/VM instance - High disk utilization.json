@@ -1,5 +1,5 @@
 {
-  "displayName": "VM Instance - High Disk Utilization",
+  "displayName": "VM instance - High disk utilization",
   "documentation": {
     "content": "This alert fires when the disk utilization on any VM instance in the project rises above 95% for 5 minutes or more.",
     "mimeType": "text/markdown"
@@ -9,7 +9,7 @@
   },
   "conditions": [
     {
-      "displayName": "VM Instance - High disk utilization",
+      "displayName": "VM instance - High disk utilization",
       "conditionThreshold": {
         "filter": "resource.type = \"gce_instance\" AND metric.type = \"agent.googleapis.com/disk/percent_used\" AND (metric.labels.state = \"used\" AND metric.labels.device != monitoring.regex.full_match(\"/dev/loop.*\")) AND metadata.user_labels.monitoring-target = \"true\"",
         "aggregations": [
