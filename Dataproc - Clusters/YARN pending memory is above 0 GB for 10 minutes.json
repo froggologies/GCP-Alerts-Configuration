@@ -5,8 +5,8 @@
     "mimeType": "text/markdown"
   },
   "userLabels": {
-		"resource": "dataproc-clusters"
-	},
+    "resource": "dataproc-clusters"
+  },
   "conditions": [
     {
       "displayName": "YARN pending memory is above 0 GB for 10 minutes",

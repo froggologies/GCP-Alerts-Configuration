@@ -5,8 +5,8 @@
     "mimeType": "text/markdown"
   },
   "userLabels": {
-		"resource": "dataproc-clusters"
-	},
+    "resource": "dataproc-clusters"
+  },
   "conditions": [
     {
       "displayName": "HDFS capacity is less than 100 GB",
