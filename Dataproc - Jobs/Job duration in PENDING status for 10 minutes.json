@@ -5,7 +5,7 @@
 		"mimeType": "text/markdown"
 	},
 	"userLabels": {
-		"resource": "dataproc-clusters"
+		"resource": "dataproc-jobs"
 	},
 	"conditions": [
 		{
