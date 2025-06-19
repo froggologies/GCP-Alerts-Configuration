@@ -1,0 +1,45 @@
+{
+  "displayName": "DAG run failures",
+  "documentation": {
+    "content": "Count of failed DAG runs increases for specific DAGs or overall.",
+    "mimeType": "text/markdown"
+  },
+  "userLabels": {
+    "resource": "cloud-composer"
+  },
+  "conditions": [
+    {
+      "displayName": "DAG run failures",
+      "conditionThreshold": {
+        "filter": "resource.type = \"cloud_composer_workflow\" AND metric.type = \"composer.googleapis.com/workflow/run_count\" AND metric.labels.state = \"failed\"",
+        "aggregations": [
+          {
+            "alignmentPeriod": "60s",
+            "crossSeriesReducer": "REDUCE_SUM",
+            "groupByFields": [
+              "resource.label.workflow_name"
+            ],
+            "perSeriesAligner": "ALIGN_DELTA"
+          }
+        ],
+        "comparison": "COMPARISON_GT",
+        "duration": "0s",
+        "trigger": {
+          "count": 1
+        },
+        "thresholdValue": 0
+      }
+    }
+  ],
+  "alertStrategy": {
+    "autoClose": "86400s",
+    "notificationPrompts": [
+      "OPENED",
+      "CLOSED"
+    ]
+  },
+  "combiner": "OR",
+  "enabled": true,
+  "notificationChannels": [],
+  "severity": "ERROR"
+}
