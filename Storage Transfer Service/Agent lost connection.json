@@ -1,0 +1,45 @@
+{
+  "displayName": "Agent lost connection",
+  "documentation": {
+    "content": "This means the on-premises source (or destination, if agents are there) is completely unreachable by Storage Transfer Service. All transfers using this pool will fail.",
+    "mimeType": "text/markdown"
+  },
+  "userLabels": {
+    "resource": "storage-transfer-service"
+  },
+  "conditions": [
+    {
+      "displayName": "Transfer Service Agent - Agent connected status",
+      "conditionThreshold": {
+        "filter": "resource.type = \"transfer_service_agent\" AND metric.type = \"storagetransfer.googleapis.com/agent/connected\"",
+        "aggregations": [
+          {
+            "alignmentPeriod": "300s",
+            "crossSeriesReducer": "REDUCE_MEAN",
+            "groupByFields": [
+              "resource.label.agent_pool"
+            ],
+            "perSeriesAligner": "ALIGN_FRACTION_TRUE"
+          }
+        ],
+        "comparison": "COMPARISON_LT",
+        "duration": "0s",
+        "trigger": {
+          "count": 1
+        },
+        "thresholdValue": 1
+      }
+    }
+  ],
+  "alertStrategy": {
+    "autoClose": "86400s",
+    "notificationPrompts": [
+      "OPENED",
+      "CLOSED"
+    ]
+  },
+  "combiner": "OR",
+  "enabled": true,
+  "notificationChannels": [],
+  "severity": "CRITICAL"
+}
