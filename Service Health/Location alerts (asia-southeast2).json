@@ -1,0 +1,35 @@
+{
+    "displayName": "Location alerts (asia-southeast2)",
+    "documentation": {
+        "content": "## 🔴 [View the service health event](https://console.cloud.google.com/servicehealth/incidentDetails/projects%2F${resource.labels.resource_container}%2Flocations%2F${resource.labels.location}%2Fevents%2F${resource.labels.event_id}?project=${resource.labels.resource_container}) \n## Description \n${log.extracted_label.title} \n\n${log.extracted_label.description} \n### Impacted products \n${log.extracted_label.impactedProducts} \n### Impacted locations \n${log.extracted_label.impactedLocations} \n## 🔴 [View the service health event](https://console.cloud.google.com/servicehealth/incidentDetails/projects%2F${resource.labels.resource_container}%2Flocations%2F${resource.labels.location}%2Fevents%2F${resource.labels.event_id}?project=${resource.labels.resource_container})",
+        "mimeType": "text/markdown"
+    },
+    "userLabels": {
+        "resource": "service-health"
+    },
+    "conditions": [
+        {
+            "displayName": "Log match condition",
+            "conditionMatchedLog": {
+                "filter": "resource.type = \"servicehealth.googleapis.com/Event\" AND labels.\"servicehealth.googleapis.com/new_event\" = true AND jsonPayload.state = \"ACTIVE\" AND jsonPayload.@type = \"type.googleapis.com/google.cloud.servicehealth.logging.v1.EventLog\" AND jsonPayload.category = \"INCIDENT\" AND jsonPayload.impactedLocations =~ \"asia-southeast2\"",
+                "labelExtractors": {
+                    "title": "EXTRACT(jsonPayload.title)",
+                    "description": "EXTRACT(jsonPayload.description)",
+                    "impactedProducts": "EXTRACT(jsonPayload.impactedProducts)",
+                    "impactedLocations": "EXTRACT(jsonPayload.impactedLocations)",
+                    "startTime": "EXTRACT(jsonPayload.startTime)",
+                    "state": "EXTRACT(jsonPayload.state)"
+                }
+            }
+        }
+    ],
+    "alertStrategy": {
+        "notificationRateLimit": {
+            "period": "300s"
+        },
+        "autoClose": "86400s"
+    },
+    "combiner": "OR",
+    "enabled": true,
+    "notificationChannels": []
+}
