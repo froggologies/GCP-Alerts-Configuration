@@ -1,7 +1,7 @@
 {
   "displayName": "VM instance - High CPU utilization",
   "documentation": {
-    "content": "This alert fires when the CPU utilization on any VM instance in the project rises above 80% for 5 minutes or more.",
+    "content": "**Alert Description:**\n\nMonitors CPU utilization across GCE VM instances and triggers when CPU usage exceeds 80% for 5 consecutive minutes or more.\n\n**Possible Causes:**\n\n- High application workload or traffic spikes\n- Resource-intensive processes running on the VM\n- Insufficient VM sizing for current workload\n- Malware or unauthorized processes consuming CPU\n- Memory leaks causing excessive CPU usage\n\n**Recommended Actions:**\n\n- Investigate running processes using top/htop commands\n- Scale up VM instance size or add more instances\n- Optimize application code for better CPU efficiency\n- Implement load balancing to distribute traffic\n- Monitor application logs for errors or performance issues",
     "mimeType": "text/markdown"
   },
   "userLabels": {
