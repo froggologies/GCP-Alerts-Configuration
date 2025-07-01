@@ -1,7 +1,7 @@
 {
   "displayName": "Composer scheduler unhealthy",
   "documentation": {
-    "content": "This alert means the Airflow scheduler isn’t doing its job — it may not be picking up DAG runs or scheduling tasks. This usually affects new DAG executions and task dependencies. Investigate the logs to diagnose and consider restarting the scheduler.",
+    "content": "**Alert Description:** Indicates Airflow scheduler is not functioning properly, potentially affecting DAG runs and task scheduling.\n\n**Possible Causes:**\n- Scheduler process crashes\n- Resource constraints\n- Database connectivity issues\n- Configuration errors\n- Python dependency conflicts\n\n**Recommended Actions:**\n- Check scheduler logs in Airflow UI\n- Restart scheduler component\n- Verify database connectivity\n- Review DAG code for errors\n- Monitor resource utilization",
     "mimeType": "text/markdown"
   },
   "userLabels": {

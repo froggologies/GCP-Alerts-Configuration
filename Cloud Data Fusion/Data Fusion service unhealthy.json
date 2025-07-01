@@ -1,7 +1,7 @@
 {
     "displayName": "Data Fusion service unhealthy",
     "documentation": {
-        "content": "Detect if any Data Fusion service is no longer reachable.",
+        "content": "**Alert Description:** Detects when any Data Fusion service becomes unreachable, indicating potential service availability issues.\n\n**Possible Causes:**\n- Service outages or maintenance\n- Network connectivity problems\n- Resource exhaustion\n- Configuration errors\n- Google Cloud service issues\n\n**Recommended Actions:**\n- Check Data Fusion service status\n- Verify network connectivity\n- Review service logs for errors\n- Restart Data Fusion services if needed\n- Contact Google Cloud Support for persistent issues\n- Implement health checks and monitoring",
         "mimeType": "text/markdown"
     },
     "userLabels": {

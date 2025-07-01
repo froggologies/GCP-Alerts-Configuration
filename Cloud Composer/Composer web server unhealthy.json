@@ -1,7 +1,7 @@
 {
   "displayName": "Composer web server unhealthy",
   "documentation": {
-    "content": "The web server is not reachable or responding. This can prevent access to the Airflow UI. Might be due to resource exhaustion, network issues, or internal errors. Check Composer logs and VM health, and try a restart if needed.",
+    "content": "**Alert Description:** Web server is unreachable or unresponsive, preventing access to Airflow UI.\n\n**Possible Causes:**\n- Web server process failures\n- Resource exhaustion\n- Network connectivity issues\n- SSL certificate problems\n- Configuration errors\n\n**Recommended Actions:**\n- Check web server logs\n- Restart web server component\n- Verify network connectivity and firewall rules\n- Review SSL certificate status\n- Monitor VM resource utilization",
     "mimeType": "text/markdown"
   },
   "userLabels": {

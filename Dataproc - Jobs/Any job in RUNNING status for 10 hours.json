@@ -1,7 +1,7 @@
 {
   "displayName": "Any job in RUNNING status for 10 hours",
   "documentation": {
-    "content": "This alert indicates that the job is in running status for 10 hours. If you want the alert to fire when the job is in running status for 20 hours, set the threshold value to 72000s.",
+    "content": "**Alert Description:** Triggers when jobs run for more than 10 hours, potentially indicating stuck or inefficient processes.\n\n**Possible Causes:**\n- Inefficient job logic or algorithms\n- Large dataset processing\n- Resource bottlenecks\n- Stuck or infinite loops\n- Poor job optimization\n\n**Recommended Actions:**\n- Review job progress and logs\n- Optimize job algorithms and logic\n- Implement job timeout mechanisms\n- Monitor resource utilization during execution\n- Consider breaking large jobs into smaller tasks",
     "mimeType": "text/markdown"
   },
   "userLabels": {

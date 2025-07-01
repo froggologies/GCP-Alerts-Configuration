@@ -1,7 +1,7 @@
 {
   "displayName": "Worker pod restarts - Unhealthy workers",
   "documentation": {
-    "content": "Workers execute your tasks. Frequent restarts or unhealthy workers mean tasks aren't running or are failing.",
+    "content": "**Alert Description:** Indicates frequent worker pod restarts or unhealthy workers, affecting task execution capability.\n\n**Possible Causes:**\n- Resource constraints on worker pods\n- Application errors causing crashes\n- Node failures or instability\n- Image or dependency issues\n- Configuration problems\n\n**Recommended Actions:**\n- Check worker pod logs and events\n- Review resource allocation for workers\n- Verify node health and stability\n- Update worker image or dependencies\n- Scale worker pool if needed",
     "mimeType": "text/markdown"
   },
   "userLabels": {

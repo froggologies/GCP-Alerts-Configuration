@@ -1,7 +1,7 @@
 {
     "displayName": "Failed pipelines",
     "documentation": {
-        "content": "This policy triggers an alert when a Data Fusion pipeline execution fails. It helps in promptly identifying and addressing pipeline failures to ensure data processing continuity.",
+        "content": "**Alert Description:** Triggers when Data Fusion pipeline execution fails, enabling prompt identification and resolution of pipeline failures to maintain data processing continuity.\n\n**Possible Causes:**\n- Data source connectivity issues\n- Invalid or corrupted input data\n- Insufficient resources or permissions\n- Plugin or transformation errors\n- Destination system failures\n\n**Recommended Actions:**\n- Review pipeline execution logs\n- Validate data source connectivity and permissions\n- Check input data quality and format\n- Verify destination system availability\n- Restart failed pipeline runs\n- Implement data validation and error handling",
         "mimeType": "text/markdown"
     },
     "userLabels": {

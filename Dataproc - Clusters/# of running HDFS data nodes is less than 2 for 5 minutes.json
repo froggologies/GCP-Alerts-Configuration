@@ -1,7 +1,7 @@
 {
   "displayName": "# of running HDFS data nodes is less than 2 for 5 minutes",
   "documentation": {
-    "content": "Alert when the number of HDFS data nodes that are running inside a cluster is less than 2 for more than 5 minutes. If you want the alert to fire when the number of HDFS data nodes crosses 5 threshold, set the threshold value to 5.",
+    "content": "**Alert Description:** Triggers when fewer than 2 HDFS data nodes are running for over 5 minutes, risking data availability and fault tolerance.\n\n**Possible Causes:**\n- Node failures or crashes\n- Network connectivity issues\n- Resource exhaustion on nodes\n- Configuration problems\n- Maintenance activities\n\n**Recommended Actions:**\n- Investigate failed node status and logs\n- Restart failed data nodes\n- Check network connectivity between nodes\n- Verify HDFS configuration\n- Ensure minimum replication factor is maintained\n- Consider adding more data nodes for redundancy",
     "mimeType": "text/markdown"
   },
   "userLabels": {

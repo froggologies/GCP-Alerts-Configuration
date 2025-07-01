@@ -1,7 +1,7 @@
 {
   "displayName": "High interconnect ingress",
   "documentation": {
-    "content": "Alerts when the Ingress bytes per second exceeds 70% of an interconnect VLAN attachment's capacity. This can help you decide whether to provision additional capacity or create additional attachments.",
+    "content": "**Alert Description:** Alerts when ingress bytes per second exceed 70% of an interconnect VLAN attachment's capacity, indicating potential need for capacity expansion.\n\n**Possible Causes:**\n- Increased data uploads from on-premises to cloud\n- Migration activities\n- Real-time data streaming\n- Backup operations\n- Application traffic spikes\n\n**Recommended Actions:**\n- Add more interconnect bandwidth\n- Create additional VLAN attachments for load distribution\n- Optimize data transfer schedules\n- Implement data compression where possible\n- Review and optimize network routing",
     "mimeType": "text/markdown"
   },
   "userLabels": {

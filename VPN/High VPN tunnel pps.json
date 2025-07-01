@@ -1,7 +1,7 @@
 {
     "displayName": "High VPN tunnel pps",
     "documentation": {
-        "content": "Alerts when the sum of ingress and egress network packets exceeds 50% of the maximum recommended packet rate of 250,000 pps for a given VPN tunnel. This can help you decide whether to provision additional VPN tunnels.",
+        "content": "**Alert Description:** Triggers when combined ingress and egress packet rate exceeds 50% of the 250,000 pps recommended limit for a VPN tunnel.\n\n**Possible Causes:**\n- High-frequency transactional applications\n- Gaming or real-time applications\n- IoT device communications\n- Monitoring and telemetry data\n- Small packet applications\n\n**Recommended Actions:**\n- Deploy additional VPN tunnels\n- Implement packet aggregation where possible\n- Optimize application protocols\n- Consider Cloud Interconnect for lower latency\n- Review traffic patterns and optimize routing",
         "mimeType": "text/markdown"
     },
     "userLabels": {

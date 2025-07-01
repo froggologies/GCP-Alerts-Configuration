@@ -1,7 +1,7 @@
 {
   "displayName": "Any CREATE_CLUSTER operation took more than 20 minutes",
   "documentation": {
-    "content": "This alert indicates that any cluster creation took more than 20 minutes.",
+    "content": "**Alert Description:** Alerts when cluster creation exceeds 20 minutes, indicating potential provisioning issues or resource constraints.\n\n**Possible Causes:**\n- Resource availability constraints\n- Large cluster configurations\n- Image preparation delays\n- Network or storage issues\n- Google Cloud service delays\n\n**Recommended Actions:**\n- Review cluster configuration for optimization\n- Consider smaller initial cluster sizes with auto-scaling\n- Check regional resource availability\n- Use preemptible instances where appropriate\n- Monitor cluster creation patterns",
     "mimeType": "text/markdown"
   },
   "userLabels": {

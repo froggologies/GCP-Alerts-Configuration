@@ -1,7 +1,7 @@
 {
   "displayName": "DAG run failures",
   "documentation": {
-    "content": "Count of failed DAG runs increases for specific DAGs or overall.",
+    "content": "**Alert Description:** Monitors and alerts on increased count of failed DAG runs for specific DAGs or overall environment.\n\n**Possible Causes:**\n- Code errors in DAG tasks\n- External dependency failures\n- Resource constraints\n- Data quality issues\n- Configuration problems\n\n**Recommended Actions:**\n- Review DAG run logs for error details\n- Fix code errors in failing tasks\n- Verify external system availability\n- Check data quality and availability\n- Implement retry mechanisms and error handling",
     "mimeType": "text/markdown"
   },
   "userLabels": {

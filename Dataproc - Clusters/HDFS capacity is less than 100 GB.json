@@ -1,7 +1,7 @@
 {
   "displayName": "HDFS capacity is less than 100 GB",
   "documentation": {
-    "content": "Alert when HDFS capacity crosses 100 GB threshold. If you want the alert to fire when the HDFS capacity crosses the 200 GB threshold, set the threshold value to 200 GB.",
+    "content": "**Alert Description:** Alerts when HDFS available capacity falls below 100 GB threshold, indicating potential storage exhaustion.\n\n**Possible Causes:**\n- Data growth exceeding capacity planning\n- Large intermediate file generation\n- Inefficient data compression\n- Lack of data lifecycle management\n- Temporary file accumulation\n\n**Recommended Actions:**\n- Add more storage capacity to cluster\n- Implement data archival policies\n- Enable data compression\n- Clean up temporary and intermediate files\n- Monitor data growth trends",
     "mimeType": "text/markdown"
   },
   "userLabels": {

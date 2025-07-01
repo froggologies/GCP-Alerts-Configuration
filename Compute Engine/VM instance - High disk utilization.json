@@ -1,7 +1,7 @@
 {
   "displayName": "VM instance - High disk utilization",
   "documentation": {
-    "content": "This alert fires when the disk utilization on any VM instance in the project rises above 95% for 5 minutes or more.",
+    "content": "**Alert Description:** Monitors disk utilization on GCE VMs and alerts when disk usage rises above 95% for 5 minutes or more. Requires Ops Agent installation for metric collection.\n\n**Possible Causes:**\n- Log files growing excessively large\n- Temporary files not being cleaned up\n- Database files expanding rapidly\n- Application data accumulation\n- Insufficient disk space provisioning\n\n**Recommended Actions:**\n- Clean up temporary files and old logs\n- Implement log rotation policies\n- Resize disk or add additional storage\n- Archive old data to cheaper storage tiers\n- Set up automated cleanup scripts\n- Monitor disk growth patterns to predict future needs",
     "mimeType": "text/markdown"
   },
   "userLabels": {

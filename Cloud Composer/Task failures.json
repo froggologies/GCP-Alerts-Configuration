@@ -1,7 +1,7 @@
 {
   "displayName": "Task failures",
   "documentation": {
-    "content": "Granular insight into which tasks are failing.",
+    "content": "**Alert Description:** Provides granular insight into specific task failures within DAGs.\n\n**Possible Causes:**\n- Task code errors or exceptions\n- External service failures\n- Data processing issues\n- Resource limitations\n- Timeout conditions\n\n**Recommended Actions:**\n- Examine task logs for specific errors\n- Debug and fix task code issues\n- Verify external dependencies\n- Optimize task resource allocation\n- Implement proper error handling and retries",
     "mimeType": "text/markdown"
   },
   "userLabels": {

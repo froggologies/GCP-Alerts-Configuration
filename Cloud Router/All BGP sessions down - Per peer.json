@@ -1,7 +1,7 @@
 {
     "displayName": "All BGP sessions down - Per peer",
     "documentation": {
-        "content": "If all BGP sessions are down, your Cloud Router has no BGP neighbors to exchange routes with, effectively isolating it from connected networks (on-premises, other VPCs).",
+        "content": "**Alert Description:** Triggers when all BGP sessions are down, isolating the Cloud Router from connected networks and preventing route exchange.\n\n**Possible Causes:**\n- Network connectivity issues\n- BGP configuration errors\n- Peer router failures\n- Authentication problems\n- Firewall blocking BGP traffic\n\n**Recommended Actions:**\n- Verify BGP peer configurations\n- Check network connectivity to peers\n- Review firewall rules for BGP traffic (port 179)\n- Validate authentication credentials\n- Implement redundant BGP sessions\n- Contact network administrators for peer-side issues",
         "mimeType": "text/markdown"
     },
     "userLabels": {

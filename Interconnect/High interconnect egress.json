@@ -1,7 +1,7 @@
 {
   "displayName": "High interconnect egress",
   "documentation": {
-    "content": "Alerts when the Egress bytes per second exceeds 70% of an interconnect VLAN attachment's capacity. This can help you decide whether to provision additional capacity or create additional attachments.",
+    "content": "**Alert Description:** Triggers when egress bytes per second exceed 70% of an interconnect VLAN attachment's capacity, helping determine when additional capacity is needed.\n\n**Possible Causes:**\n- Increased data transfer from cloud to on-premises\n- Large file transfers or backups\n- Application traffic growth\n- Batch processing jobs\n- Network optimization changes\n\n**Recommended Actions:**\n- Provision additional interconnect capacity\n- Create additional VLAN attachments\n- Schedule large transfers during off-peak hours\n- Implement traffic shaping and QoS policies\n- Monitor traffic patterns to predict capacity needs",
     "mimeType": "text/markdown"
   },
   "userLabels": {

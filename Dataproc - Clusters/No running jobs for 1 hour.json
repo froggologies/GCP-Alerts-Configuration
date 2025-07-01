@@ -1,7 +1,7 @@
 {
   "displayName": "No running jobs for 1 hour",
   "documentation": {
-    "content": "This alert indicates that the cluster is idle for an hour.",
+    "content": "**Alert Description:** Indicates cluster has been idle for one hour with no active jobs, potentially representing underutilized resources.\n\n**Possible Causes:**\n- Job scheduling gaps\n- Completed batch processing\n- Application or workflow issues\n- Resource over-provisioning\n- Planned maintenance windows\n\n**Recommended Actions:**\n- Review job scheduling and workflow\n- Consider auto-scaling or cluster shutdown policies\n- Optimize resource allocation\n- Implement just-in-time cluster provisioning\n- Review cost optimization opportunities",
     "mimeType": "text/markdown"
   },
   "userLabels": {

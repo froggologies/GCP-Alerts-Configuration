@@ -1,7 +1,7 @@
 {
   "displayName": "Agent lost connection",
   "documentation": {
-    "content": "This means the on-premises source (or destination, if agents are there) is completely unreachable by Storage Transfer Service. All transfers using this pool will fail.",
+    "content": "**Alert Description:** On-premises source or destination agent is completely unreachable by Storage Transfer Service, causing all transfers using this pool to fail.\n\n**Possible Causes:**\n- Network connectivity issues\n- Agent process failures or crashes\n- Firewall blocking communication\n- Authentication or certificate problems\n- Resource exhaustion on agent host\n\n**Recommended Actions:**\n- Check agent host network connectivity\n- Restart Storage Transfer Service agent\n- Verify firewall rules and network configuration\n- Validate authentication credentials and certificates\n- Monitor agent host resources (CPU, memory, disk)\n- Review agent logs for detailed error information",
     "mimeType": "text/markdown"
   },
   "userLabels": {

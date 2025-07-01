@@ -1,7 +1,7 @@
 {
   "displayName": "YARN pending memory is above 0 GB for 10 minutes",
   "documentation": {
-    "content": "Alert when pending memory in a cluster is above 0 GB. If you want the alert to fire when the pending memory is above 1 GB, set the threshold value to 1 GB.",
+    "content": "**Alert Description:** Triggers when pending memory in cluster exceeds 0 GB for 10 minutes, indicating resource contention.\n\n**Possible Causes:**\n- Insufficient cluster memory resources\n- Large job memory requirements\n- Memory leaks in applications\n- Poor resource allocation configuration\n- Concurrent job competition\n\n**Recommended Actions:**\n- Scale up cluster memory capacity\n- Optimize job memory allocation\n- Review and tune YARN configuration\n- Implement job scheduling policies\n- Monitor application memory usage patterns",
     "mimeType": "text/markdown"
   },
   "userLabels": {

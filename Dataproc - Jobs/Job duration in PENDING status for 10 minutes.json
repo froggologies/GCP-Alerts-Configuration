@@ -1,7 +1,7 @@
 {
   "displayName": "Job duration in PENDING status for 10 minutes",
   "documentation": {
-    "content": "This alert indicates that the job is in pending status for 10 minutes. If you want the alert to fire when the job is in pending status for 20 minutes, set the threshold value to 1200s.",
+    "content": "**Alert Description:** Alerts when jobs remain in PENDING status for 10 minutes, indicating potential scheduling or resource issues.\n\n**Possible Causes:**\n- Insufficient cluster resources\n- Job queue congestion\n- Resource allocation conflicts\n- Configuration errors\n- Dependency issues\n\n**Recommended Actions:**\n- Review cluster resource availability\n- Optimize job resource requirements\n- Implement job prioritization\n- Check for configuration errors\n- Scale cluster resources if needed",
     "mimeType": "text/markdown"
   },
   "userLabels": {

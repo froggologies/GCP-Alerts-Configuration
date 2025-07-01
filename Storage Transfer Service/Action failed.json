@@ -1,7 +1,7 @@
 {
     "displayName": "Action failed",
     "documentation": {
-        "content": "Indicates data was not transferred as expected.",
+        "content": "**Alert Description:** Indicates data was not transferred as expected, representing complete transfer operation failure.\n\n**Possible Causes:**\n- Source or destination system failures\n- Network interruptions\n- Permission or authentication issues\n- Storage space limitations\n- Configuration errors\n\n**Recommended Actions:**\n- Check transfer job status and logs\n- Verify source and destination system health\n- Validate configuration settings\n- Ensure adequate storage space\n- Retry transfer operations\n- Contact support if issues persist",
         "mimeType": "text/markdown"
     },
     "userLabels": {

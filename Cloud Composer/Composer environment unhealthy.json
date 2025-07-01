@@ -1,7 +1,7 @@
 {
   "displayName": "Composer environment unhealthy",
   "documentation": {
-    "content": "This alert fires when the overall Cloud Composer environment health is marked as unhealthy. It could be due to failures in one or more components (scheduler, web server, database, etc.). Check the individual services and logs in the Airflow UI or Cloud Logging for more detailed info.",
+    "content": "**Alert Description:** Fires when overall Cloud Composer environment health is unhealthy due to failures in scheduler, web server, database, or other components.\n\n**Possible Causes:**\n- Resource exhaustion (CPU, memory, disk)\n- Component failures or crashes\n- Configuration errors\n- Network connectivity issues\n- Dependency conflicts\n\n**Recommended Actions:**\n- Check individual component health status\n- Review Airflow UI and Cloud Logging for details\n- Restart unhealthy components\n- Scale environment resources if needed\n- Verify network and firewall configurations",
     "mimeType": "text/markdown"
   },
   "userLabels": {

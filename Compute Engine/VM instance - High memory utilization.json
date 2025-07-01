@@ -1,7 +1,7 @@
 {
   "displayName": "VM instance - High memory utilization",
   "documentation": {
-    "content": "This alert fires when the memory utilization on any VM instance in the project rises above 90% for 5 minutes or more.",
+    "content": "**Alert Description:** Monitors memory usage on GCE VMs and triggers when memory utilization exceeds 90% for 5 consecutive minutes. Requires Ops Agent installation.\n\n**Possible Causes:**\n- Memory leaks in applications\n- Insufficient RAM for current workload\n- Too many concurrent processes\n- Large datasets loaded into memory\n- Caching systems consuming excessive memory\n\n**Recommended Actions:**\n- Identify memory-intensive processes using tools like ps or htop\n- Restart applications with memory leaks\n- Upgrade to VM with more RAM\n- Optimize application memory usage\n- Implement memory monitoring and alerting\n- Consider using swap space as temporary solution",
     "mimeType": "text/markdown"
   },
   "userLabels": {

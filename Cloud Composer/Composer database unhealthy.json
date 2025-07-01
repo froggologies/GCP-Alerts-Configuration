@@ -1,7 +1,7 @@
 {
   "displayName": "Composer database unhealthy",
   "documentation": {
-    "content": "The underlying database backing Airflow is not healthy. This could break task status updates, DAG runs, and Airflow’s core functionality. Check metrics like CPU/memory/disk for the database, and inspect logs in the database component.",
+    "content": "**Alert Description:** The underlying Airflow database is unhealthy, potentially breaking task status updates and core functionality.\n\n**Possible Causes:**\n- Database connectivity issues\n- Resource exhaustion (CPU, memory, disk)\n- Database corruption\n- Connection pool exhaustion\n- Storage issues\n\n**Recommended Actions:**\n- Check database metrics and logs\n- Verify database connectivity\n- Monitor database resource utilization\n- Review connection pool settings\n- Consider database maintenance or scaling",
     "mimeType": "text/markdown"
   },
   "userLabels": {

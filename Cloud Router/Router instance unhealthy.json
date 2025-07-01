@@ -1,7 +1,7 @@
 {
     "displayName": "Router instance unhealthy",
     "documentation": {
-        "content": "This indicates your Cloud Router is offline and routing is completely impacted.",
+        "content": "**Alert Description:** Indicates Cloud Router is offline, causing complete routing impact and network connectivity loss.\n\n**Possible Causes:**\n- Hardware or software failures\n- Configuration errors\n- Network connectivity issues\n- Resource exhaustion\n- Google Cloud service outages\n\n**Recommended Actions:**\n- Check Cloud Router status in Google Cloud Console\n- Verify router configuration\n- Implement redundant routers for high availability\n- Contact Google Cloud Support immediately\n- Review recent configuration changes",
         "mimeType": "text/markdown"
     },
     "userLabels": {
