@@ -1,0 +1,31 @@
+{
+    "displayName": "Action failed",
+    "documentation": {
+        "content": "Indicates data was not transferred as expected.",
+        "mimeType": "text/markdown"
+    },
+    "userLabels": {
+        "resource": "storage-transfer-service"
+    },
+    "conditions": [
+        {
+            "displayName": "Log match condition",
+            "conditionMatchedLog": {
+                "filter": "resource.type=\"storage_transfer_job\"\r\nlabels.severity=\"Error\""
+            }
+        }
+    ],
+    "alertStrategy": {
+        "notificationRateLimit": {
+            "period": "3600s"
+        },
+        "autoClose": "86400s",
+        "notificationPrompts": [
+            "OPENED"
+        ]
+    },
+    "combiner": "OR",
+    "enabled": true,
+    "notificationChannels": [],
+    "severity": "ERROR"
+}
