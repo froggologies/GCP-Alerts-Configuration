@@ -28,8 +28,8 @@
     "enabled": true,
     "notificationChannels": [
         "projects/prj-monitoring-data/notificationChannels/2510337602220718765",
-        "projects/prj-monitoring-infra/notificationChannels/5563533643990171168",
-        "projects/prj-monitoring-infra/notificationChannels/5662916481903944804"
+        "projects/prj-monitoring-data/notificationChannels/452633450730650274",
+        "projects/prj-monitoring-data/notificationChannels/6495883545166754521"
     ],
     "severity": "ERROR"
 }
