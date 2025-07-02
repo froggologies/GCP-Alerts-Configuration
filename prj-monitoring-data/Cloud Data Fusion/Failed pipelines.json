@@ -43,7 +43,7 @@
     "combiner": "OR",
     "enabled": true,
     "notificationChannels": [
-        "projects/prj-monitoring-infra/notificationChannels/3383977001288891302",
+        "projects/prj-monitoring-data/notificationChannels/2510337602220718765",
         "projects/prj-monitoring-infra/notificationChannels/5563533643990171168",
         "projects/prj-monitoring-infra/notificationChannels/5662916481903944804"
     ],
