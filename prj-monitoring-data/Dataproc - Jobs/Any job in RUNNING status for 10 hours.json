@@ -1,40 +1,44 @@
 {
-  "displayName": "Any job in RUNNING status for 10 hours",
-  "documentation": {
-    "content": "**Alert Description:** Triggers when jobs run for more than 10 hours, potentially indicating stuck or inefficient processes.\n\n**Possible Causes:**\n- Inefficient job logic or algorithms\n- Large dataset processing\n- Resource bottlenecks\n- Stuck or infinite loops\n- Poor job optimization\n\n**Recommended Actions:**\n- Review job progress and logs\n- Optimize job algorithms and logic\n- Implement job timeout mechanisms\n- Monitor resource utilization during execution\n- Consider breaking large jobs into smaller tasks",
-    "mimeType": "text/markdown"
-  },
-  "userLabels": {
-    "resource": "dataproc-jobs"
-  },
-  "conditions": [
-    {
-      "displayName": "Any job in RUNNING status for 10 hours",
-      "conditionAbsent": {
-        "filter": "metric.type=\"dataproc.googleapis.com/cluster/job/duration\" AND resource.type=\"cloud_dataproc_cluster\" AND metric.labels.state=\"RUNNING\"",
-        "duration": "36000s",
-        "trigger": {
-          "count": 1
-        },
-        "aggregations": [
-          {
-            "alignmentPeriod": "60s",
-            "crossSeriesReducer": "REDUCE_SUM",
-            "perSeriesAligner": "ALIGN_SUM"
-          }
+    "displayName": "Any job in RUNNING status for 10 hours",
+    "documentation": {
+        "content": "**Alert Description:** Triggers when jobs run for more than 10 hours, potentially indicating stuck or inefficient processes.\n\n**Possible Causes:**\n- Inefficient job logic or algorithms\n- Large dataset processing\n- Resource bottlenecks\n- Stuck or infinite loops\n- Poor job optimization\n\n**Recommended Actions:**\n- Review job progress and logs\n- Optimize job algorithms and logic\n- Implement job timeout mechanisms\n- Monitor resource utilization during execution\n- Consider breaking large jobs into smaller tasks",
+        "mimeType": "text/markdown"
+    },
+    "userLabels": {
+        "resource": "dataproc-jobs"
+    },
+    "conditions": [
+        {
+            "displayName": "Any job in RUNNING status for 10 hours",
+            "conditionAbsent": {
+                "filter": "metric.type=\"dataproc.googleapis.com/cluster/job/duration\" AND resource.type=\"cloud_dataproc_cluster\" AND metric.labels.state=\"RUNNING\"",
+                "duration": "36000s",
+                "trigger": {
+                    "count": 1
+                },
+                "aggregations": [
+                    {
+                        "alignmentPeriod": "60s",
+                        "crossSeriesReducer": "REDUCE_SUM",
+                        "perSeriesAligner": "ALIGN_SUM"
+                    }
+                ]
+            }
+        }
+    ],
+    "alertStrategy": {
+        "autoClose": "86400s",
+        "notificationPrompts": [
+            "OPENED",
+            "CLOSED"
         ]
-      }
-    }
-  ],
-  "alertStrategy": {
-    "autoClose": "86400s",
-    "notificationPrompts": [
-      "OPENED",
-      "CLOSED"
-    ]
-  },
-  "combiner": "OR",
-  "enabled": true,
-  "notificationChannels": [],
-  "severity": "WARNING"
+    },
+    "combiner": "OR",
+    "enabled": true,
+    "notificationChannels": [
+        "projects/prj-monitoring-infra/notificationChannels/3383977001288891302",
+        "projects/prj-monitoring-infra/notificationChannels/5563533643990171168",
+        "projects/prj-monitoring-infra/notificationChannels/5662916481903944804"
+    ],
+    "severity": "WARNING"
 }

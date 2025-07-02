@@ -1,45 +1,49 @@
 {
-  "displayName": "Composer web server unhealthy",
-  "documentation": {
-    "content": "**Alert Description:** Web server is unreachable or unresponsive, preventing access to Airflow UI.\n\n**Possible Causes:**\n- Web server process failures\n- Resource exhaustion\n- Network connectivity issues\n- SSL certificate problems\n- Configuration errors\n\n**Recommended Actions:**\n- Check web server logs\n- Restart web server component\n- Verify network connectivity and firewall rules\n- Review SSL certificate status\n- Monitor VM resource utilization",
-    "mimeType": "text/markdown"
-  },
-  "userLabels": {
-    "resource": "cloud-composer"
-  },
-  "conditions": [
-    {
-      "displayName": "Composer web server unhealthy",
-      "conditionThreshold": {
-        "filter": "resource.type = \"cloud_composer_environment\" AND metric.type = \"composer.googleapis.com/environment/web_server/health\"",
-        "aggregations": [
-          {
-            "alignmentPeriod": "60s",
-            "crossSeriesReducer": "REDUCE_SUM",
-            "groupByFields": [
-              "resource.label.environment_name"
-            ],
-            "perSeriesAligner": "ALIGN_COUNT_TRUE"
-          }
-        ],
-        "comparison": "COMPARISON_LT",
-        "duration": "0s",
-        "trigger": {
-          "count": 1
-        },
-        "thresholdValue": 0.1
-      }
-    }
-  ],
-  "alertStrategy": {
-    "autoClose": "86400s",
-    "notificationPrompts": [
-      "OPENED",
-      "CLOSED"
-    ]
-  },
-  "combiner": "OR",
-  "enabled": true,
-  "notificationChannels": [],
-  "severity": "CRITICAL"
+    "displayName": "Composer web server unhealthy",
+    "documentation": {
+        "content": "**Alert Description:** Web server is unreachable or unresponsive, preventing access to Airflow UI.\n\n**Possible Causes:**\n- Web server process failures\n- Resource exhaustion\n- Network connectivity issues\n- SSL certificate problems\n- Configuration errors\n\n**Recommended Actions:**\n- Check web server logs\n- Restart web server component\n- Verify network connectivity and firewall rules\n- Review SSL certificate status\n- Monitor VM resource utilization",
+        "mimeType": "text/markdown"
+    },
+    "userLabels": {
+        "resource": "cloud-composer"
+    },
+    "conditions": [
+        {
+            "displayName": "Composer web server unhealthy",
+            "conditionThreshold": {
+                "filter": "resource.type = \"cloud_composer_environment\" AND metric.type = \"composer.googleapis.com/environment/web_server/health\"",
+                "aggregations": [
+                    {
+                        "alignmentPeriod": "60s",
+                        "crossSeriesReducer": "REDUCE_SUM",
+                        "groupByFields": [
+                            "resource.label.environment_name"
+                        ],
+                        "perSeriesAligner": "ALIGN_COUNT_TRUE"
+                    }
+                ],
+                "comparison": "COMPARISON_LT",
+                "duration": "0s",
+                "trigger": {
+                    "count": 1
+                },
+                "thresholdValue": 0.1
+            }
+        }
+    ],
+    "alertStrategy": {
+        "autoClose": "86400s",
+        "notificationPrompts": [
+            "OPENED",
+            "CLOSED"
+        ]
+    },
+    "combiner": "OR",
+    "enabled": true,
+    "notificationChannels": [
+        "projects/prj-monitoring-infra/notificationChannels/3383977001288891302",
+        "projects/prj-monitoring-infra/notificationChannels/5563533643990171168",
+        "projects/prj-monitoring-infra/notificationChannels/5662916481903944804"
+    ],
+    "severity": "CRITICAL"
 }

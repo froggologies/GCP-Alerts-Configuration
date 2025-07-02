@@ -1,45 +1,49 @@
 {
-  "displayName": "Composer environment unhealthy",
-  "documentation": {
-    "content": "**Alert Description:** Fires when overall Cloud Composer environment health is unhealthy due to failures in scheduler, web server, database, or other components.\n\n**Possible Causes:**\n- Resource exhaustion (CPU, memory, disk)\n- Component failures or crashes\n- Configuration errors\n- Network connectivity issues\n- Dependency conflicts\n\n**Recommended Actions:**\n- Check individual component health status\n- Review Airflow UI and Cloud Logging for details\n- Restart unhealthy components\n- Scale environment resources if needed\n- Verify network and firewall configurations",
-    "mimeType": "text/markdown"
-  },
-  "userLabels": {
-    "resource": "cloud-composer"
-  },
-  "conditions": [
-    {
-      "displayName": "Composer environment unhealthy",
-      "conditionThreshold": {
-        "filter": "resource.type = \"cloud_composer_environment\" AND metric.type = \"composer.googleapis.com/environment/healthy\"",
-        "aggregations": [
-          {
-            "alignmentPeriod": "60s",
-            "crossSeriesReducer": "REDUCE_SUM",
-            "groupByFields": [
-              "resource.label.environment_name"
-            ],
-            "perSeriesAligner": "ALIGN_COUNT_TRUE"
-          }
-        ],
-        "comparison": "COMPARISON_LT",
-        "duration": "0s",
-        "trigger": {
-          "count": 1
-        },
-        "thresholdValue": 1
-      }
-    }
-  ],
-  "alertStrategy": {
-    "autoClose": "86400s",
-    "notificationPrompts": [
-      "OPENED",
-      "CLOSED"
-    ]
-  },
-  "combiner": "OR",
-  "enabled": true,
-  "notificationChannels": [],
-  "severity": "CRITICAL"
+    "displayName": "Composer environment unhealthy",
+    "documentation": {
+        "content": "**Alert Description:** Fires when overall Cloud Composer environment health is unhealthy due to failures in scheduler, web server, database, or other components.\n\n**Possible Causes:**\n- Resource exhaustion (CPU, memory, disk)\n- Component failures or crashes\n- Configuration errors\n- Network connectivity issues\n- Dependency conflicts\n\n**Recommended Actions:**\n- Check individual component health status\n- Review Airflow UI and Cloud Logging for details\n- Restart unhealthy components\n- Scale environment resources if needed\n- Verify network and firewall configurations",
+        "mimeType": "text/markdown"
+    },
+    "userLabels": {
+        "resource": "cloud-composer"
+    },
+    "conditions": [
+        {
+            "displayName": "Composer environment unhealthy",
+            "conditionThreshold": {
+                "filter": "resource.type = \"cloud_composer_environment\" AND metric.type = \"composer.googleapis.com/environment/healthy\"",
+                "aggregations": [
+                    {
+                        "alignmentPeriod": "60s",
+                        "crossSeriesReducer": "REDUCE_SUM",
+                        "groupByFields": [
+                            "resource.label.environment_name"
+                        ],
+                        "perSeriesAligner": "ALIGN_COUNT_TRUE"
+                    }
+                ],
+                "comparison": "COMPARISON_LT",
+                "duration": "0s",
+                "trigger": {
+                    "count": 1
+                },
+                "thresholdValue": 1
+            }
+        }
+    ],
+    "alertStrategy": {
+        "autoClose": "86400s",
+        "notificationPrompts": [
+            "OPENED",
+            "CLOSED"
+        ]
+    },
+    "combiner": "OR",
+    "enabled": true,
+    "notificationChannels": [
+        "projects/prj-monitoring-infra/notificationChannels/3383977001288891302",
+        "projects/prj-monitoring-infra/notificationChannels/5563533643990171168",
+        "projects/prj-monitoring-infra/notificationChannels/5662916481903944804"
+    ],
+    "severity": "CRITICAL"
 }

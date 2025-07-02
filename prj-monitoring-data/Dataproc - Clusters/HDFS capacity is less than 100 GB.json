@@ -1,41 +1,45 @@
 {
-  "displayName": "HDFS capacity is less than 100 GB",
-  "documentation": {
-    "content": "**Alert Description:** Alerts when HDFS available capacity falls below 100 GB threshold, indicating potential storage exhaustion.\n\n**Possible Causes:**\n- Data growth exceeding capacity planning\n- Large intermediate file generation\n- Inefficient data compression\n- Lack of data lifecycle management\n- Temporary file accumulation\n\n**Recommended Actions:**\n- Add more storage capacity to cluster\n- Implement data archival policies\n- Enable data compression\n- Clean up temporary and intermediate files\n- Monitor data growth trends",
-    "mimeType": "text/markdown"
-  },
-  "userLabels": {
-    "resource": "dataproc-clusters"
-  },
-  "conditions": [
-    {
-      "displayName": "HDFS capacity is less than 100 GB",
-      "conditionThreshold": {
-        "filter": "metric.type=\"dataproc.googleapis.com/cluster/hdfs/storage_capacity\" AND resource.type=\"cloud_dataproc_cluster\"",
-        "comparison": "COMPARISON_GT",
-        "thresholdValue": 100,
-        "duration": "300s",
-        "trigger": {
-          "count": 1
-        },
-        "aggregations": [
-          {
-            "alignmentPeriod": "300s",
-            "perSeriesAligner": "ALIGN_MEAN"
-          }
+    "displayName": "HDFS capacity is less than 100 GB",
+    "documentation": {
+        "content": "**Alert Description:** Alerts when HDFS available capacity falls below 100 GB threshold, indicating potential storage exhaustion.\n\n**Possible Causes:**\n- Data growth exceeding capacity planning\n- Large intermediate file generation\n- Inefficient data compression\n- Lack of data lifecycle management\n- Temporary file accumulation\n\n**Recommended Actions:**\n- Add more storage capacity to cluster\n- Implement data archival policies\n- Enable data compression\n- Clean up temporary and intermediate files\n- Monitor data growth trends",
+        "mimeType": "text/markdown"
+    },
+    "userLabels": {
+        "resource": "dataproc-clusters"
+    },
+    "conditions": [
+        {
+            "displayName": "HDFS capacity is less than 100 GB",
+            "conditionThreshold": {
+                "filter": "metric.type=\"dataproc.googleapis.com/cluster/hdfs/storage_capacity\" AND resource.type=\"cloud_dataproc_cluster\"",
+                "comparison": "COMPARISON_GT",
+                "thresholdValue": 100,
+                "duration": "300s",
+                "trigger": {
+                    "count": 1
+                },
+                "aggregations": [
+                    {
+                        "alignmentPeriod": "300s",
+                        "perSeriesAligner": "ALIGN_MEAN"
+                    }
+                ]
+            }
+        }
+    ],
+    "alertStrategy": {
+        "autoClose": "86400s",
+        "notificationPrompts": [
+            "OPENED",
+            "CLOSED"
         ]
-      }
-    }
-  ],
-  "alertStrategy": {
-    "autoClose": "86400s",
-    "notificationPrompts": [
-      "OPENED",
-      "CLOSED"
-    ]
-  },
-  "combiner": "OR",
-  "enabled": true,
-  "notificationChannels": [],
-  "severity": "WARNING"
+    },
+    "combiner": "OR",
+    "enabled": true,
+    "notificationChannels": [
+        "projects/prj-monitoring-infra/notificationChannels/3383977001288891302",
+        "projects/prj-monitoring-infra/notificationChannels/5563533643990171168",
+        "projects/prj-monitoring-infra/notificationChannels/5662916481903944804"
+    ],
+    "severity": "WARNING"
 }

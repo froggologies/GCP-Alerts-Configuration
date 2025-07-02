@@ -1,40 +1,44 @@
 {
-  "displayName": "Job duration in PENDING status for 10 minutes",
-  "documentation": {
-    "content": "**Alert Description:** Alerts when jobs remain in PENDING status for 10 minutes, indicating potential scheduling or resource issues.\n\n**Possible Causes:**\n- Insufficient cluster resources\n- Job queue congestion\n- Resource allocation conflicts\n- Configuration errors\n- Dependency issues\n\n**Recommended Actions:**\n- Review cluster resource availability\n- Optimize job resource requirements\n- Implement job prioritization\n- Check for configuration errors\n- Scale cluster resources if needed",
-    "mimeType": "text/markdown"
-  },
-  "userLabels": {
-    "resource": "dataproc-jobs"
-  },
-  "conditions": [
-    {
-      "displayName": "Job duration in PENDING status for 10 minutes",
-      "conditionAbsent": {
-        "filter": "metric.type=\"dataproc.googleapis.com/cluster/job/duration\" AND resource.type=\"cloud_dataproc_cluster\" AND metric.labels.state=\"PENDING\"",
-        "duration": "600s",
-        "trigger": {
-          "count": 1
-        },
-        "aggregations": [
-          {
-            "alignmentPeriod": "60s",
-            "crossSeriesReducer": "REDUCE_SUM",
-            "perSeriesAligner": "ALIGN_SUM"
-          }
+    "displayName": "Job duration in PENDING status for 10 minutes",
+    "documentation": {
+        "content": "**Alert Description:** Alerts when jobs remain in PENDING status for 10 minutes, indicating potential scheduling or resource issues.\n\n**Possible Causes:**\n- Insufficient cluster resources\n- Job queue congestion\n- Resource allocation conflicts\n- Configuration errors\n- Dependency issues\n\n**Recommended Actions:**\n- Review cluster resource availability\n- Optimize job resource requirements\n- Implement job prioritization\n- Check for configuration errors\n- Scale cluster resources if needed",
+        "mimeType": "text/markdown"
+    },
+    "userLabels": {
+        "resource": "dataproc-jobs"
+    },
+    "conditions": [
+        {
+            "displayName": "Job duration in PENDING status for 10 minutes",
+            "conditionAbsent": {
+                "filter": "metric.type=\"dataproc.googleapis.com/cluster/job/duration\" AND resource.type=\"cloud_dataproc_cluster\" AND metric.labels.state=\"PENDING\"",
+                "duration": "600s",
+                "trigger": {
+                    "count": 1
+                },
+                "aggregations": [
+                    {
+                        "alignmentPeriod": "60s",
+                        "crossSeriesReducer": "REDUCE_SUM",
+                        "perSeriesAligner": "ALIGN_SUM"
+                    }
+                ]
+            }
+        }
+    ],
+    "alertStrategy": {
+        "autoClose": "86400s",
+        "notificationPrompts": [
+            "OPENED",
+            "CLOSED"
         ]
-      }
-    }
-  ],
-  "alertStrategy": {
-    "autoClose": "86400s",
-    "notificationPrompts": [
-      "OPENED",
-      "CLOSED"
-    ]
-  },
-  "combiner": "OR",
-  "enabled": true,
-  "notificationChannels": [],
-  "severity": "WARNING"
+    },
+    "combiner": "OR",
+    "enabled": true,
+    "notificationChannels": [
+        "projects/prj-monitoring-infra/notificationChannels/3383977001288891302",
+        "projects/prj-monitoring-infra/notificationChannels/5563533643990171168",
+        "projects/prj-monitoring-infra/notificationChannels/5662916481903944804"
+    ],
+    "severity": "WARNING"
 }

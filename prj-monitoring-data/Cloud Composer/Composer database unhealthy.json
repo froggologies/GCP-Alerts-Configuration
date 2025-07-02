@@ -1,45 +1,49 @@
 {
-  "displayName": "Composer database unhealthy",
-  "documentation": {
-    "content": "**Alert Description:** The underlying Airflow database is unhealthy, potentially breaking task status updates and core functionality.\n\n**Possible Causes:**\n- Database connectivity issues\n- Resource exhaustion (CPU, memory, disk)\n- Database corruption\n- Connection pool exhaustion\n- Storage issues\n\n**Recommended Actions:**\n- Check database metrics and logs\n- Verify database connectivity\n- Monitor database resource utilization\n- Review connection pool settings\n- Consider database maintenance or scaling",
-    "mimeType": "text/markdown"
-  },
-  "userLabels": {
-    "resource": "cloud-composer"
-  },
-  "conditions": [
-    {
-      "displayName": "Composer database unhealthy",
-      "conditionThreshold": {
-        "filter": "resource.type = \"cloud_composer_environment\" AND metric.type = \"composer.googleapis.com/environment/database_health\"",
-        "aggregations": [
-          {
-            "alignmentPeriod": "60s",
-            "crossSeriesReducer": "REDUCE_SUM",
-            "groupByFields": [
-              "resource.label.environment_name"
-            ],
-            "perSeriesAligner": "ALIGN_COUNT_TRUE"
-          }
-        ],
-        "comparison": "COMPARISON_LT",
-        "duration": "0s",
-        "trigger": {
-          "count": 1
-        },
-        "thresholdValue": 1
-      }
-    }
-  ],
-  "alertStrategy": {
-    "autoClose": "86400s",
-    "notificationPrompts": [
-      "OPENED",
-      "CLOSED"
-    ]
-  },
-  "combiner": "OR",
-  "enabled": true,
-  "notificationChannels": [],
-  "severity": "CRITICAL"
+    "displayName": "Composer database unhealthy",
+    "documentation": {
+        "content": "**Alert Description:** The underlying Airflow database is unhealthy, potentially breaking task status updates and core functionality.\n\n**Possible Causes:**\n- Database connectivity issues\n- Resource exhaustion (CPU, memory, disk)\n- Database corruption\n- Connection pool exhaustion\n- Storage issues\n\n**Recommended Actions:**\n- Check database metrics and logs\n- Verify database connectivity\n- Monitor database resource utilization\n- Review connection pool settings\n- Consider database maintenance or scaling",
+        "mimeType": "text/markdown"
+    },
+    "userLabels": {
+        "resource": "cloud-composer"
+    },
+    "conditions": [
+        {
+            "displayName": "Composer database unhealthy",
+            "conditionThreshold": {
+                "filter": "resource.type = \"cloud_composer_environment\" AND metric.type = \"composer.googleapis.com/environment/database_health\"",
+                "aggregations": [
+                    {
+                        "alignmentPeriod": "60s",
+                        "crossSeriesReducer": "REDUCE_SUM",
+                        "groupByFields": [
+                            "resource.label.environment_name"
+                        ],
+                        "perSeriesAligner": "ALIGN_COUNT_TRUE"
+                    }
+                ],
+                "comparison": "COMPARISON_LT",
+                "duration": "0s",
+                "trigger": {
+                    "count": 1
+                },
+                "thresholdValue": 1
+            }
+        }
+    ],
+    "alertStrategy": {
+        "autoClose": "86400s",
+        "notificationPrompts": [
+            "OPENED",
+            "CLOSED"
+        ]
+    },
+    "combiner": "OR",
+    "enabled": true,
+    "notificationChannels": [
+        "projects/prj-monitoring-infra/notificationChannels/3383977001288891302",
+        "projects/prj-monitoring-infra/notificationChannels/5563533643990171168",
+        "projects/prj-monitoring-infra/notificationChannels/5662916481903944804"
+    ],
+    "severity": "CRITICAL"
 }

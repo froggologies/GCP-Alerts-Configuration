@@ -1,41 +1,45 @@
 {
-  "displayName": "# of running HDFS data nodes is less than 2 for 5 minutes",
-  "documentation": {
-    "content": "**Alert Description:** Triggers when fewer than 2 HDFS data nodes are running for over 5 minutes, risking data availability and fault tolerance.\n\n**Possible Causes:**\n- Node failures or crashes\n- Network connectivity issues\n- Resource exhaustion on nodes\n- Configuration problems\n- Maintenance activities\n\n**Recommended Actions:**\n- Investigate failed node status and logs\n- Restart failed data nodes\n- Check network connectivity between nodes\n- Verify HDFS configuration\n- Ensure minimum replication factor is maintained\n- Consider adding more data nodes for redundancy",
-    "mimeType": "text/markdown"
-  },
-  "userLabels": {
-    "resource": "dataproc-clusters"
-  },
-  "conditions": [
-    {
-      "displayName": "# of running HDFS data nodes is less than 2 for 5 minutes",
-      "conditionThreshold": {
-        "filter": "metric.type=\"dataproc.googleapis.com/cluster/hdfs/datanodes\" AND resource.type=\"cloud_dataproc_cluster\"",
-        "comparison": "COMPARISON_GT",
-        "thresholdValue": 2,
-        "duration": "300s",
-        "trigger": {
-          "count": 1
-        },
-        "aggregations": [
-          {
-            "alignmentPeriod": "300s",
-            "perSeriesAligner": "ALIGN_MEAN"
-          }
+    "displayName": "# of running HDFS data nodes is less than 2 for 5 minutes",
+    "documentation": {
+        "content": "**Alert Description:** Triggers when fewer than 2 HDFS data nodes are running for over 5 minutes, risking data availability and fault tolerance.\n\n**Possible Causes:**\n- Node failures or crashes\n- Network connectivity issues\n- Resource exhaustion on nodes\n- Configuration problems\n- Maintenance activities\n\n**Recommended Actions:**\n- Investigate failed node status and logs\n- Restart failed data nodes\n- Check network connectivity between nodes\n- Verify HDFS configuration\n- Ensure minimum replication factor is maintained\n- Consider adding more data nodes for redundancy",
+        "mimeType": "text/markdown"
+    },
+    "userLabels": {
+        "resource": "dataproc-clusters"
+    },
+    "conditions": [
+        {
+            "displayName": "# of running HDFS data nodes is less than 2 for 5 minutes",
+            "conditionThreshold": {
+                "filter": "metric.type=\"dataproc.googleapis.com/cluster/hdfs/datanodes\" AND resource.type=\"cloud_dataproc_cluster\"",
+                "comparison": "COMPARISON_GT",
+                "thresholdValue": 2,
+                "duration": "300s",
+                "trigger": {
+                    "count": 1
+                },
+                "aggregations": [
+                    {
+                        "alignmentPeriod": "300s",
+                        "perSeriesAligner": "ALIGN_MEAN"
+                    }
+                ]
+            }
+        }
+    ],
+    "alertStrategy": {
+        "autoClose": "86400s",
+        "notificationPrompts": [
+            "OPENED",
+            "CLOSED"
         ]
-      }
-    }
-  ],
-  "alertStrategy": {
-    "autoClose": "86400s",
-    "notificationPrompts": [
-      "OPENED",
-      "CLOSED"
-    ]
-  },
-  "combiner": "OR",
-  "enabled": true,
-  "notificationChannels": [],
-  "severity": "WARNING"
+    },
+    "combiner": "OR",
+    "enabled": true,
+    "notificationChannels": [
+        "projects/prj-monitoring-infra/notificationChannels/3383977001288891302",
+        "projects/prj-monitoring-infra/notificationChannels/5563533643990171168",
+        "projects/prj-monitoring-infra/notificationChannels/5662916481903944804"
+    ],
+    "severity": "WARNING"
 }

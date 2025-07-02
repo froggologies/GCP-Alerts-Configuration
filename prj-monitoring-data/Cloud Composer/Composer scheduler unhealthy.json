@@ -1,45 +1,49 @@
 {
-  "displayName": "Composer scheduler unhealthy",
-  "documentation": {
-    "content": "**Alert Description:** Indicates Airflow scheduler is not functioning properly, potentially affecting DAG runs and task scheduling.\n\n**Possible Causes:**\n- Scheduler process crashes\n- Resource constraints\n- Database connectivity issues\n- Configuration errors\n- Python dependency conflicts\n\n**Recommended Actions:**\n- Check scheduler logs in Airflow UI\n- Restart scheduler component\n- Verify database connectivity\n- Review DAG code for errors\n- Monitor resource utilization",
-    "mimeType": "text/markdown"
-  },
-  "userLabels": {
-    "resource": "cloud-composer"
-  },
-  "conditions": [
-    {
-      "displayName": "Composer scheduler unhealthy",
-      "conditionThreshold": {
-        "filter": "resource.type = \"cloud_composer_environment\" AND metric.type = \"composer.googleapis.com/environment/scheduler_heartbeat_count\"",
-        "aggregations": [
-          {
-            "alignmentPeriod": "60s",
-            "crossSeriesReducer": "REDUCE_SUM",
-            "groupByFields": [
-              "resource.label.environment_name"
-            ],
-            "perSeriesAligner": "ALIGN_MEAN"
-          }
-        ],
-        "comparison": "COMPARISON_LT",
-        "duration": "0s",
-        "trigger": {
-          "count": 1
-        },
-        "thresholdValue": 4
-      }
-    }
-  ],
-  "alertStrategy": {
-    "autoClose": "86400s",
-    "notificationPrompts": [
-      "OPENED",
-      "CLOSED"
-    ]
-  },
-  "combiner": "OR",
-  "enabled": true,
-  "notificationChannels": [],
-  "severity": "CRITICAL"
+    "displayName": "Composer scheduler unhealthy",
+    "documentation": {
+        "content": "**Alert Description:** Indicates Airflow scheduler is not functioning properly, potentially affecting DAG runs and task scheduling.\n\n**Possible Causes:**\n- Scheduler process crashes\n- Resource constraints\n- Database connectivity issues\n- Configuration errors\n- Python dependency conflicts\n\n**Recommended Actions:**\n- Check scheduler logs in Airflow UI\n- Restart scheduler component\n- Verify database connectivity\n- Review DAG code for errors\n- Monitor resource utilization",
+        "mimeType": "text/markdown"
+    },
+    "userLabels": {
+        "resource": "cloud-composer"
+    },
+    "conditions": [
+        {
+            "displayName": "Composer scheduler unhealthy",
+            "conditionThreshold": {
+                "filter": "resource.type = \"cloud_composer_environment\" AND metric.type = \"composer.googleapis.com/environment/scheduler_heartbeat_count\"",
+                "aggregations": [
+                    {
+                        "alignmentPeriod": "60s",
+                        "crossSeriesReducer": "REDUCE_SUM",
+                        "groupByFields": [
+                            "resource.label.environment_name"
+                        ],
+                        "perSeriesAligner": "ALIGN_MEAN"
+                    }
+                ],
+                "comparison": "COMPARISON_LT",
+                "duration": "0s",
+                "trigger": {
+                    "count": 1
+                },
+                "thresholdValue": 4
+            }
+        }
+    ],
+    "alertStrategy": {
+        "autoClose": "86400s",
+        "notificationPrompts": [
+            "OPENED",
+            "CLOSED"
+        ]
+    },
+    "combiner": "OR",
+    "enabled": true,
+    "notificationChannels": [
+        "projects/prj-monitoring-infra/notificationChannels/3383977001288891302",
+        "projects/prj-monitoring-infra/notificationChannels/5563533643990171168",
+        "projects/prj-monitoring-infra/notificationChannels/5662916481903944804"
+    ],
+    "severity": "CRITICAL"
 }

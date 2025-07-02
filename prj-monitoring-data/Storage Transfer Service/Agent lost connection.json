@@ -1,45 +1,49 @@
 {
-  "displayName": "Agent lost connection",
-  "documentation": {
-    "content": "**Alert Description:** On-premises source or destination agent is completely unreachable by Storage Transfer Service, causing all transfers using this pool to fail.\n\n**Possible Causes:**\n- Network connectivity issues\n- Agent process failures or crashes\n- Firewall blocking communication\n- Authentication or certificate problems\n- Resource exhaustion on agent host\n\n**Recommended Actions:**\n- Check agent host network connectivity\n- Restart Storage Transfer Service agent\n- Verify firewall rules and network configuration\n- Validate authentication credentials and certificates\n- Monitor agent host resources (CPU, memory, disk)\n- Review agent logs for detailed error information",
-    "mimeType": "text/markdown"
-  },
-  "userLabels": {
-    "resource": "storage-transfer-service"
-  },
-  "conditions": [
-    {
-      "displayName": "Transfer Service Agent - Agent connected status",
-      "conditionThreshold": {
-        "filter": "resource.type = \"transfer_service_agent\" AND metric.type = \"storagetransfer.googleapis.com/agent/connected\"",
-        "aggregations": [
-          {
-            "alignmentPeriod": "300s",
-            "crossSeriesReducer": "REDUCE_MEAN",
-            "groupByFields": [
-              "resource.label.agent_pool"
-            ],
-            "perSeriesAligner": "ALIGN_FRACTION_TRUE"
-          }
-        ],
-        "comparison": "COMPARISON_LT",
-        "duration": "0s",
-        "trigger": {
-          "count": 1
-        },
-        "thresholdValue": 1
-      }
-    }
-  ],
-  "alertStrategy": {
-    "autoClose": "86400s",
-    "notificationPrompts": [
-      "OPENED",
-      "CLOSED"
-    ]
-  },
-  "combiner": "OR",
-  "enabled": true,
-  "notificationChannels": [],
-  "severity": "CRITICAL"
+    "displayName": "Agent lost connection",
+    "documentation": {
+        "content": "**Alert Description:** On-premises source or destination agent is completely unreachable by Storage Transfer Service, causing all transfers using this pool to fail.\n\n**Possible Causes:**\n- Network connectivity issues\n- Agent process failures or crashes\n- Firewall blocking communication\n- Authentication or certificate problems\n- Resource exhaustion on agent host\n\n**Recommended Actions:**\n- Check agent host network connectivity\n- Restart Storage Transfer Service agent\n- Verify firewall rules and network configuration\n- Validate authentication credentials and certificates\n- Monitor agent host resources (CPU, memory, disk)\n- Review agent logs for detailed error information",
+        "mimeType": "text/markdown"
+    },
+    "userLabels": {
+        "resource": "storage-transfer-service"
+    },
+    "conditions": [
+        {
+            "displayName": "Transfer Service Agent - Agent connected status",
+            "conditionThreshold": {
+                "filter": "resource.type = \"transfer_service_agent\" AND metric.type = \"storagetransfer.googleapis.com/agent/connected\"",
+                "aggregations": [
+                    {
+                        "alignmentPeriod": "300s",
+                        "crossSeriesReducer": "REDUCE_MEAN",
+                        "groupByFields": [
+                            "resource.label.agent_pool"
+                        ],
+                        "perSeriesAligner": "ALIGN_FRACTION_TRUE"
+                    }
+                ],
+                "comparison": "COMPARISON_LT",
+                "duration": "0s",
+                "trigger": {
+                    "count": 1
+                },
+                "thresholdValue": 1
+            }
+        }
+    ],
+    "alertStrategy": {
+        "autoClose": "86400s",
+        "notificationPrompts": [
+            "OPENED",
+            "CLOSED"
+        ]
+    },
+    "combiner": "OR",
+    "enabled": true,
+    "notificationChannels": [
+        "projects/prj-monitoring-infra/notificationChannels/3383977001288891302",
+        "projects/prj-monitoring-infra/notificationChannels/5563533643990171168",
+        "projects/prj-monitoring-infra/notificationChannels/5662916481903944804"
+    ],
+    "severity": "CRITICAL"
 }

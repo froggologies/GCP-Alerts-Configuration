@@ -1,41 +1,45 @@
 {
-  "displayName": "YARN pending memory is above 0 GB for 10 minutes",
-  "documentation": {
-    "content": "**Alert Description:** Triggers when pending memory in cluster exceeds 0 GB for 10 minutes, indicating resource contention.\n\n**Possible Causes:**\n- Insufficient cluster memory resources\n- Large job memory requirements\n- Memory leaks in applications\n- Poor resource allocation configuration\n- Concurrent job competition\n\n**Recommended Actions:**\n- Scale up cluster memory capacity\n- Optimize job memory allocation\n- Review and tune YARN configuration\n- Implement job scheduling policies\n- Monitor application memory usage patterns",
-    "mimeType": "text/markdown"
-  },
-  "userLabels": {
-    "resource": "dataproc-clusters"
-  },
-  "conditions": [
-    {
-      "displayName": "YARN pending memory is above 0 GB for 10 minutes",
-      "conditionThreshold": {
-        "filter": "metric.type=\"dataproc.googleapis.com/cluster/yarn/memory_size\" AND resource.type=\"cloud_dataproc_cluster\"",
-        "comparison": "COMPARISON_GT",
-        "thresholdValue": 0,
-        "duration": "600s",
-        "trigger": {
-          "count": 1
-        },
-        "aggregations": [
-          {
-            "alignmentPeriod": "300s",
-            "perSeriesAligner": "ALIGN_MEAN"
-          }
+    "displayName": "YARN pending memory is above 0 GB for 10 minutes",
+    "documentation": {
+        "content": "**Alert Description:** Triggers when pending memory in cluster exceeds 0 GB for 10 minutes, indicating resource contention.\n\n**Possible Causes:**\n- Insufficient cluster memory resources\n- Large job memory requirements\n- Memory leaks in applications\n- Poor resource allocation configuration\n- Concurrent job competition\n\n**Recommended Actions:**\n- Scale up cluster memory capacity\n- Optimize job memory allocation\n- Review and tune YARN configuration\n- Implement job scheduling policies\n- Monitor application memory usage patterns",
+        "mimeType": "text/markdown"
+    },
+    "userLabels": {
+        "resource": "dataproc-clusters"
+    },
+    "conditions": [
+        {
+            "displayName": "YARN pending memory is above 0 GB for 10 minutes",
+            "conditionThreshold": {
+                "filter": "metric.type=\"dataproc.googleapis.com/cluster/yarn/memory_size\" AND resource.type=\"cloud_dataproc_cluster\"",
+                "comparison": "COMPARISON_GT",
+                "thresholdValue": 0,
+                "duration": "600s",
+                "trigger": {
+                    "count": 1
+                },
+                "aggregations": [
+                    {
+                        "alignmentPeriod": "300s",
+                        "perSeriesAligner": "ALIGN_MEAN"
+                    }
+                ]
+            }
+        }
+    ],
+    "alertStrategy": {
+        "autoClose": "86400s",
+        "notificationPrompts": [
+            "OPENED",
+            "CLOSED"
         ]
-      }
-    }
-  ],
-  "alertStrategy": {
-    "autoClose": "86400s",
-    "notificationPrompts": [
-      "OPENED",
-      "CLOSED"
-    ]
-  },
-  "combiner": "OR",
-  "enabled": true,
-  "notificationChannels": [],
-  "severity": "WARNING"
+    },
+    "combiner": "OR",
+    "enabled": true,
+    "notificationChannels": [
+        "projects/prj-monitoring-infra/notificationChannels/3383977001288891302",
+        "projects/prj-monitoring-infra/notificationChannels/5563533643990171168",
+        "projects/prj-monitoring-infra/notificationChannels/5662916481903944804"
+    ],
+    "severity": "WARNING"
 }

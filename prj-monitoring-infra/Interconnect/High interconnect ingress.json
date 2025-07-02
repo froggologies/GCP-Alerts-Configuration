@@ -1,33 +1,37 @@
 {
-  "displayName": "High interconnect ingress",
-  "documentation": {
-    "content": "**Alert Description:** Alerts when ingress bytes per second exceed 70% of an interconnect VLAN attachment's capacity, indicating potential need for capacity expansion.\n\n**Possible Causes:**\n- Increased data uploads from on-premises to cloud\n- Migration activities\n- Real-time data streaming\n- Backup operations\n- Application traffic spikes\n\n**Recommended Actions:**\n- Add more interconnect bandwidth\n- Create additional VLAN attachments for load distribution\n- Optimize data transfer schedules\n- Implement data compression where possible\n- Review and optimize network routing",
-    "mimeType": "text/markdown"
-  },
-  "userLabels": {
+    "displayName": "High interconnect ingress",
+    "documentation": {
+        "content": "**Alert Description:** Alerts when ingress bytes per second exceed 70% of an interconnect VLAN attachment's capacity, indicating potential need for capacity expansion.\n\n**Possible Causes:**\n- Increased data uploads from on-premises to cloud\n- Migration activities\n- Real-time data streaming\n- Backup operations\n- Application traffic spikes\n\n**Recommended Actions:**\n- Add more interconnect bandwidth\n- Create additional VLAN attachments for load distribution\n- Optimize data transfer schedules\n- Implement data compression where possible\n- Review and optimize network routing",
+        "mimeType": "text/markdown"
+    },
+    "userLabels": {
         "resource": "interconnect"
     },
-  "conditions": [
-    {
-      "displayName": "VLAN attachment ingress usage",
-      "conditionMonitoringQueryLanguage": {
-        "duration": "0s",
-        "trigger": {
-          "count": 1
-        },
-        "query": "fetch interconnect_attachment\n| {\n   metric 'interconnect.googleapis.com/network/attachment/received_bytes_count'\n   | align rate(30s)\n ; metric 'interconnect.googleapis.com/network/attachment/capacity'\n   | group_by 30s, [value_capacity_mean: mean(value.capacity)]\n }\n| ratio\n| condition gt(val(), 0.70 '1')"
-      }
-    }
-  ],
-  "alertStrategy": {
-    "autoClose": "86400s",
-    "notificationPrompts": [
-      "OPENED",
-      "CLOSED"
-    ]
-  },
-  "combiner": "OR",
-  "enabled": true,
-  "notificationChannels": [],
-  "severity": "CRITICAL"
+    "conditions": [
+        {
+            "displayName": "VLAN attachment ingress usage",
+            "conditionMonitoringQueryLanguage": {
+                "duration": "0s",
+                "trigger": {
+                    "count": 1
+                },
+                "query": "fetch interconnect_attachment\n| {\n   metric 'interconnect.googleapis.com/network/attachment/received_bytes_count'\n   | align rate(30s)\n ; metric 'interconnect.googleapis.com/network/attachment/capacity'\n   | group_by 30s, [value_capacity_mean: mean(value.capacity)]\n }\n| ratio\n| condition gt(val(), 0.70 '1')"
+            }
+        }
+    ],
+    "alertStrategy": {
+        "autoClose": "86400s",
+        "notificationPrompts": [
+            "OPENED",
+            "CLOSED"
+        ]
+    },
+    "combiner": "OR",
+    "enabled": true,
+    "notificationChannels": [
+        "projects/prj-monitoring-infra/notificationChannels/3383977001288891302",
+        "projects/prj-monitoring-infra/notificationChannels/5563533643990171168",
+        "projects/prj-monitoring-infra/notificationChannels/5662916481903944804"
+    ],
+    "severity": "CRITICAL"
 }

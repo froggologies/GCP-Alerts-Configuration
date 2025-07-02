@@ -1,42 +1,46 @@
 {
-  "displayName": "VM instance - High disk utilization",
-  "documentation": {
-    "content": "**Alert Description:** Monitors disk utilization on GCE VMs and alerts when disk usage rises above 95% for 5 minutes or more. Requires Ops Agent installation for metric collection.\n\n**Possible Causes:**\n- Log files growing excessively large\n- Temporary files not being cleaned up\n- Database files expanding rapidly\n- Application data accumulation\n- Insufficient disk space provisioning\n\n**Recommended Actions:**\n- Clean up temporary files and old logs\n- Implement log rotation policies\n- Resize disk or add additional storage\n- Archive old data to cheaper storage tiers\n- Set up automated cleanup scripts\n- Monitor disk growth patterns to predict future needs",
-    "mimeType": "text/markdown"
-  },
-  "userLabels": {
-    "resource": "compute-engine"
-  },
-  "conditions": [
-    {
-      "displayName": "VM instance - High disk utilization",
-      "conditionThreshold": {
-        "filter": "resource.type = \"gce_instance\" AND metric.type = \"agent.googleapis.com/disk/percent_used\" AND (metric.labels.state = \"used\" AND metric.labels.device != monitoring.regex.full_match(\"/dev/loop.*\")) AND metadata.user_labels.monitoring_target = \"true\"",
-        "aggregations": [
-          {
-            "alignmentPeriod": "300s",
-            "crossSeriesReducer": "REDUCE_NONE",
-            "perSeriesAligner": "ALIGN_MEAN"
-          }
-        ],
-        "comparison": "COMPARISON_GT",
-        "duration": "0s",
-        "trigger": {
-          "count": 1
-        },
-        "thresholdValue": 95
-      }
-    }
-  ],
-  "alertStrategy": {
-    "autoClose": "86400s",
-    "notificationPrompts": [
-      "OPENED",
-      "CLOSED"
-    ]
-  },
-  "combiner": "OR",
-  "enabled": true,
-  "notificationChannels": [],
-  "severity": "CRITICAL"
+    "displayName": "VM instance - High disk utilization",
+    "documentation": {
+        "content": "**Alert Description:** Monitors disk utilization on GCE VMs and alerts when disk usage rises above 95% for 5 minutes or more. Requires Ops Agent installation for metric collection.\n\n**Possible Causes:**\n- Log files growing excessively large\n- Temporary files not being cleaned up\n- Database files expanding rapidly\n- Application data accumulation\n- Insufficient disk space provisioning\n\n**Recommended Actions:**\n- Clean up temporary files and old logs\n- Implement log rotation policies\n- Resize disk or add additional storage\n- Archive old data to cheaper storage tiers\n- Set up automated cleanup scripts\n- Monitor disk growth patterns to predict future needs",
+        "mimeType": "text/markdown"
+    },
+    "userLabels": {
+        "resource": "compute-engine"
+    },
+    "conditions": [
+        {
+            "displayName": "VM instance - High disk utilization",
+            "conditionThreshold": {
+                "filter": "resource.type = \"gce_instance\" AND metric.type = \"agent.googleapis.com/disk/percent_used\" AND (metric.labels.state = \"used\" AND metric.labels.device != monitoring.regex.full_match(\"/dev/loop.*\")) AND metadata.user_labels.monitoring_target = \"true\"",
+                "aggregations": [
+                    {
+                        "alignmentPeriod": "300s",
+                        "crossSeriesReducer": "REDUCE_NONE",
+                        "perSeriesAligner": "ALIGN_MEAN"
+                    }
+                ],
+                "comparison": "COMPARISON_GT",
+                "duration": "0s",
+                "trigger": {
+                    "count": 1
+                },
+                "thresholdValue": 95
+            }
+        }
+    ],
+    "alertStrategy": {
+        "autoClose": "86400s",
+        "notificationPrompts": [
+            "OPENED",
+            "CLOSED"
+        ]
+    },
+    "combiner": "OR",
+    "enabled": true,
+    "notificationChannels": [
+        "projects/prj-monitoring-infra/notificationChannels/3383977001288891302",
+        "projects/prj-monitoring-infra/notificationChannels/5563533643990171168",
+        "projects/prj-monitoring-infra/notificationChannels/5662916481903944804"
+    ],
+    "severity": "CRITICAL"
 }

@@ -1,45 +1,49 @@
 {
-  "displayName": "Transfer errors found",
-  "documentation": {
-    "content": "**Alert Description:** Indicates potential issues with source data, permissions, network, or destination that may slow down transfers or indicate underlying problems.\n\n**Possible Causes:**\n- File permission issues\n- Network connectivity problems\n- Storage quota limitations\n- Data corruption or inaccessible files\n- Authentication failures\n\n**Recommended Actions:**\n- Review transfer operation logs for specific errors\n- Verify source and destination permissions\n- Check storage quota and availability\n- Validate file integrity and accessibility\n- Retry failed transfers after resolving issues\n- Implement error monitoring and alerting",
-    "mimeType": "text/markdown"
-  },
-  "userLabels": {
-    "resource": "storage-transfer-service"
-  },
-  "conditions": [
-    {
-      "displayName": "Cloud Storage Transfer Job - Error count",
-      "conditionThreshold": {
-        "filter": "resource.type = \"storage_transfer_job\" AND metric.type = \"storagetransfer.googleapis.com/transferjob/error_count\"",
-        "aggregations": [
-          {
-            "alignmentPeriod": "300s",
-            "crossSeriesReducer": "REDUCE_SUM",
-            "groupByFields": [
-              "resource.label.project_id"
-            ],
-            "perSeriesAligner": "ALIGN_RATE"
-          }
-        ],
-        "comparison": "COMPARISON_GT",
-        "duration": "0s",
-        "trigger": {
-          "count": 1
-        },
-        "thresholdValue": 0
-      }
-    }
-  ],
-  "alertStrategy": {
-    "autoClose": "86400s",
-    "notificationPrompts": [
-      "OPENED",
-      "CLOSED"
-    ]
-  },
-  "combiner": "OR",
-  "enabled": true,
-  "notificationChannels": [],
-  "severity": "ERROR"
+    "displayName": "Transfer errors found",
+    "documentation": {
+        "content": "**Alert Description:** Indicates potential issues with source data, permissions, network, or destination that may slow down transfers or indicate underlying problems.\n\n**Possible Causes:**\n- File permission issues\n- Network connectivity problems\n- Storage quota limitations\n- Data corruption or inaccessible files\n- Authentication failures\n\n**Recommended Actions:**\n- Review transfer operation logs for specific errors\n- Verify source and destination permissions\n- Check storage quota and availability\n- Validate file integrity and accessibility\n- Retry failed transfers after resolving issues\n- Implement error monitoring and alerting",
+        "mimeType": "text/markdown"
+    },
+    "userLabels": {
+        "resource": "storage-transfer-service"
+    },
+    "conditions": [
+        {
+            "displayName": "Cloud Storage Transfer Job - Error count",
+            "conditionThreshold": {
+                "filter": "resource.type = \"storage_transfer_job\" AND metric.type = \"storagetransfer.googleapis.com/transferjob/error_count\"",
+                "aggregations": [
+                    {
+                        "alignmentPeriod": "300s",
+                        "crossSeriesReducer": "REDUCE_SUM",
+                        "groupByFields": [
+                            "resource.label.project_id"
+                        ],
+                        "perSeriesAligner": "ALIGN_RATE"
+                    }
+                ],
+                "comparison": "COMPARISON_GT",
+                "duration": "0s",
+                "trigger": {
+                    "count": 1
+                },
+                "thresholdValue": 0
+            }
+        }
+    ],
+    "alertStrategy": {
+        "autoClose": "86400s",
+        "notificationPrompts": [
+            "OPENED",
+            "CLOSED"
+        ]
+    },
+    "combiner": "OR",
+    "enabled": true,
+    "notificationChannels": [
+        "projects/prj-monitoring-infra/notificationChannels/3383977001288891302",
+        "projects/prj-monitoring-infra/notificationChannels/5563533643990171168",
+        "projects/prj-monitoring-infra/notificationChannels/5662916481903944804"
+    ],
+    "severity": "ERROR"
 }

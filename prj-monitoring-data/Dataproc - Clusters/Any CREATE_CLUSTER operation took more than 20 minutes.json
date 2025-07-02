@@ -1,40 +1,44 @@
 {
-  "displayName": "Any CREATE_CLUSTER operation took more than 20 minutes",
-  "documentation": {
-    "content": "**Alert Description:** Alerts when cluster creation exceeds 20 minutes, indicating potential provisioning issues or resource constraints.\n\n**Possible Causes:**\n- Resource availability constraints\n- Large cluster configurations\n- Image preparation delays\n- Network or storage issues\n- Google Cloud service delays\n\n**Recommended Actions:**\n- Review cluster configuration for optimization\n- Consider smaller initial cluster sizes with auto-scaling\n- Check regional resource availability\n- Use preemptible instances where appropriate\n- Monitor cluster creation patterns",
-    "mimeType": "text/markdown"
-  },
-  "userLabels": {
-    "resource": "dataproc-clusters"
-  },
-  "conditions": [
-    {
-      "displayName": "Any CREATE_CLUSTER operation took more than 20 minutes",
-      "conditionAbsent": {
-        "filter": "metric.type=\"dataproc.googleapis.com/cluster/operation/completion_time\" AND resource.type=\"cloud_dataproc_cluster\"",
-        "duration": "1200s",
-        "trigger": {
-          "count": 1
-        },
-        "aggregations": [
-          {
-            "alignmentPeriod": "60s",
-            "crossSeriesReducer": "REDUCE_SUM",
-            "perSeriesAligner": "ALIGN_SUM"
-          }
+    "displayName": "Any CREATE_CLUSTER operation took more than 20 minutes",
+    "documentation": {
+        "content": "**Alert Description:** Alerts when cluster creation exceeds 20 minutes, indicating potential provisioning issues or resource constraints.\n\n**Possible Causes:**\n- Resource availability constraints\n- Large cluster configurations\n- Image preparation delays\n- Network or storage issues\n- Google Cloud service delays\n\n**Recommended Actions:**\n- Review cluster configuration for optimization\n- Consider smaller initial cluster sizes with auto-scaling\n- Check regional resource availability\n- Use preemptible instances where appropriate\n- Monitor cluster creation patterns",
+        "mimeType": "text/markdown"
+    },
+    "userLabels": {
+        "resource": "dataproc-clusters"
+    },
+    "conditions": [
+        {
+            "displayName": "Any CREATE_CLUSTER operation took more than 20 minutes",
+            "conditionAbsent": {
+                "filter": "metric.type=\"dataproc.googleapis.com/cluster/operation/completion_time\" AND resource.type=\"cloud_dataproc_cluster\"",
+                "duration": "1200s",
+                "trigger": {
+                    "count": 1
+                },
+                "aggregations": [
+                    {
+                        "alignmentPeriod": "60s",
+                        "crossSeriesReducer": "REDUCE_SUM",
+                        "perSeriesAligner": "ALIGN_SUM"
+                    }
+                ]
+            }
+        }
+    ],
+    "alertStrategy": {
+        "autoClose": "86400s",
+        "notificationPrompts": [
+            "OPENED",
+            "CLOSED"
         ]
-      }
-    }
-  ],
-  "alertStrategy": {
-    "autoClose": "86400s",
-    "notificationPrompts": [
-      "OPENED",
-      "CLOSED"
-    ]
-  },
-  "combiner": "OR",
-  "enabled": true,
-  "notificationChannels": [],
-  "severity": "WARNING"
+    },
+    "combiner": "OR",
+    "enabled": true,
+    "notificationChannels": [
+        "projects/prj-monitoring-infra/notificationChannels/3383977001288891302",
+        "projects/prj-monitoring-infra/notificationChannels/5563533643990171168",
+        "projects/prj-monitoring-infra/notificationChannels/5662916481903944804"
+    ],
+    "severity": "WARNING"
 }

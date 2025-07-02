@@ -1,45 +1,49 @@
 {
-  "displayName": "DAG run failures",
-  "documentation": {
-    "content": "**Alert Description:** Monitors and alerts on increased count of failed DAG runs for specific DAGs or overall environment.\n\n**Possible Causes:**\n- Code errors in DAG tasks\n- External dependency failures\n- Resource constraints\n- Data quality issues\n- Configuration problems\n\n**Recommended Actions:**\n- Review DAG run logs for error details\n- Fix code errors in failing tasks\n- Verify external system availability\n- Check data quality and availability\n- Implement retry mechanisms and error handling",
-    "mimeType": "text/markdown"
-  },
-  "userLabels": {
-    "resource": "cloud-composer"
-  },
-  "conditions": [
-    {
-      "displayName": "DAG run failures",
-      "conditionThreshold": {
-        "filter": "resource.type = \"cloud_composer_workflow\" AND metric.type = \"composer.googleapis.com/workflow/run_count\" AND metric.labels.state = \"failed\"",
-        "aggregations": [
-          {
-            "alignmentPeriod": "60s",
-            "crossSeriesReducer": "REDUCE_SUM",
-            "groupByFields": [
-              "resource.label.workflow_name"
-            ],
-            "perSeriesAligner": "ALIGN_DELTA"
-          }
-        ],
-        "comparison": "COMPARISON_GT",
-        "duration": "0s",
-        "trigger": {
-          "count": 1
-        },
-        "thresholdValue": 0
-      }
-    }
-  ],
-  "alertStrategy": {
-    "autoClose": "86400s",
-    "notificationPrompts": [
-      "OPENED",
-      "CLOSED"
-    ]
-  },
-  "combiner": "OR",
-  "enabled": true,
-  "notificationChannels": [],
-  "severity": "ERROR"
+    "displayName": "DAG run failures",
+    "documentation": {
+        "content": "**Alert Description:** Monitors and alerts on increased count of failed DAG runs for specific DAGs or overall environment.\n\n**Possible Causes:**\n- Code errors in DAG tasks\n- External dependency failures\n- Resource constraints\n- Data quality issues\n- Configuration problems\n\n**Recommended Actions:**\n- Review DAG run logs for error details\n- Fix code errors in failing tasks\n- Verify external system availability\n- Check data quality and availability\n- Implement retry mechanisms and error handling",
+        "mimeType": "text/markdown"
+    },
+    "userLabels": {
+        "resource": "cloud-composer"
+    },
+    "conditions": [
+        {
+            "displayName": "DAG run failures",
+            "conditionThreshold": {
+                "filter": "resource.type = \"cloud_composer_workflow\" AND metric.type = \"composer.googleapis.com/workflow/run_count\" AND metric.labels.state = \"failed\"",
+                "aggregations": [
+                    {
+                        "alignmentPeriod": "60s",
+                        "crossSeriesReducer": "REDUCE_SUM",
+                        "groupByFields": [
+                            "resource.label.workflow_name"
+                        ],
+                        "perSeriesAligner": "ALIGN_DELTA"
+                    }
+                ],
+                "comparison": "COMPARISON_GT",
+                "duration": "0s",
+                "trigger": {
+                    "count": 1
+                },
+                "thresholdValue": 0
+            }
+        }
+    ],
+    "alertStrategy": {
+        "autoClose": "86400s",
+        "notificationPrompts": [
+            "OPENED",
+            "CLOSED"
+        ]
+    },
+    "combiner": "OR",
+    "enabled": true,
+    "notificationChannels": [
+        "projects/prj-monitoring-infra/notificationChannels/3383977001288891302",
+        "projects/prj-monitoring-infra/notificationChannels/5563533643990171168",
+        "projects/prj-monitoring-infra/notificationChannels/5662916481903944804"
+    ],
+    "severity": "ERROR"
 }

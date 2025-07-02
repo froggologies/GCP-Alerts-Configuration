@@ -1,31 +1,35 @@
 {
-  "displayName": "VM instance - Host error log detected",
-  "documentation": {
-    "content": "**Alert Description:** Monitors system event logs for host-level errors on GCE VMs and notifies when host errors occur, with notifications limited to once per hour.\n\n**Possible Causes:**\n- Hardware failures or degradation\n- Host system crashes or reboots\n- Network connectivity issues\n- Storage subsystem failures\n- Hypervisor-level problems\n\n**Recommended Actions:**\n- Check VM health status in Google Cloud Console\n- Review system logs for detailed error information\n- Consider migrating VM to different host if persistent\n- Contact Google Cloud Support for hardware-related issues\n- Implement redundancy and failover mechanisms",
-    "mimeType": "text/markdown"
-  },
-  "userLabels": {
-    "resource": "compute-engine"
-  },
-  "conditions": [
-    {
-      "displayName": "Log match condition",
-      "conditionMatchedLog": {
-        "filter": "log_id(\"cloudaudit.googleapis.com/system_event\") AND operation.producer=\"compute.instances.hostError\""
-      }
-    }
-  ],
-  "alertStrategy": {
-    "notificationRateLimit": {
-      "period": "3600s"
+    "displayName": "VM instance - Host error log detected",
+    "documentation": {
+        "content": "**Alert Description:** Monitors system event logs for host-level errors on GCE VMs and notifies when host errors occur, with notifications limited to once per hour.\n\n**Possible Causes:**\n- Hardware failures or degradation\n- Host system crashes or reboots\n- Network connectivity issues\n- Storage subsystem failures\n- Hypervisor-level problems\n\n**Recommended Actions:**\n- Check VM health status in Google Cloud Console\n- Review system logs for detailed error information\n- Consider migrating VM to different host if persistent\n- Contact Google Cloud Support for hardware-related issues\n- Implement redundancy and failover mechanisms",
+        "mimeType": "text/markdown"
     },
-    "autoClose": "86400s",
-    "notificationPrompts": [
-      "OPENED"
-    ]
-  },
-  "combiner": "OR",
-  "enabled": true,
-  "notificationChannels": [],
-  "severity": "CRITICAL"
+    "userLabels": {
+        "resource": "compute-engine"
+    },
+    "conditions": [
+        {
+            "displayName": "Log match condition",
+            "conditionMatchedLog": {
+                "filter": "log_id(\"cloudaudit.googleapis.com/system_event\") AND operation.producer=\"compute.instances.hostError\""
+            }
+        }
+    ],
+    "alertStrategy": {
+        "notificationRateLimit": {
+            "period": "3600s"
+        },
+        "autoClose": "86400s",
+        "notificationPrompts": [
+            "OPENED"
+        ]
+    },
+    "combiner": "OR",
+    "enabled": true,
+    "notificationChannels": [
+        "projects/prj-monitoring-infra/notificationChannels/3383977001288891302",
+        "projects/prj-monitoring-infra/notificationChannels/5563533643990171168",
+        "projects/prj-monitoring-infra/notificationChannels/5662916481903944804"
+    ],
+    "severity": "CRITICAL"
 }

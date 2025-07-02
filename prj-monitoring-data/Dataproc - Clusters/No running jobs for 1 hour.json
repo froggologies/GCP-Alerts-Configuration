@@ -1,41 +1,45 @@
 {
-  "displayName": "No running jobs for 1 hour",
-  "documentation": {
-    "content": "**Alert Description:** Indicates cluster has been idle for one hour with no active jobs, potentially representing underutilized resources.\n\n**Possible Causes:**\n- Job scheduling gaps\n- Completed batch processing\n- Application or workflow issues\n- Resource over-provisioning\n- Planned maintenance windows\n\n**Recommended Actions:**\n- Review job scheduling and workflow\n- Consider auto-scaling or cluster shutdown policies\n- Optimize resource allocation\n- Implement just-in-time cluster provisioning\n- Review cost optimization opportunities",
-    "mimeType": "text/markdown"
-  },
-  "userLabels": {
-    "resource": "dataproc-clusters"
-  },
-  "conditions": [
-    {
-      "displayName": "No running jobs for 1 hour",
-      "conditionThreshold": {
-        "filter": "metric.type=\"dataproc.googleapis.com/cluster/job/running_count\" AND resource.type=\"cloud_dataproc_cluster\"",
-        "comparison": "COMPARISON_LT",
-        "thresholdValue": 0,
-        "duration": "3600s",
-        "trigger": {
-          "count": 1
-        },
-        "aggregations": [
-          {
-            "alignmentPeriod": "300s",
-            "perSeriesAligner": "ALIGN_MEAN"
-          }
+    "displayName": "No running jobs for 1 hour",
+    "documentation": {
+        "content": "**Alert Description:** Indicates cluster has been idle for one hour with no active jobs, potentially representing underutilized resources.\n\n**Possible Causes:**\n- Job scheduling gaps\n- Completed batch processing\n- Application or workflow issues\n- Resource over-provisioning\n- Planned maintenance windows\n\n**Recommended Actions:**\n- Review job scheduling and workflow\n- Consider auto-scaling or cluster shutdown policies\n- Optimize resource allocation\n- Implement just-in-time cluster provisioning\n- Review cost optimization opportunities",
+        "mimeType": "text/markdown"
+    },
+    "userLabels": {
+        "resource": "dataproc-clusters"
+    },
+    "conditions": [
+        {
+            "displayName": "No running jobs for 1 hour",
+            "conditionThreshold": {
+                "filter": "metric.type=\"dataproc.googleapis.com/cluster/job/running_count\" AND resource.type=\"cloud_dataproc_cluster\"",
+                "comparison": "COMPARISON_LT",
+                "thresholdValue": 0,
+                "duration": "3600s",
+                "trigger": {
+                    "count": 1
+                },
+                "aggregations": [
+                    {
+                        "alignmentPeriod": "300s",
+                        "perSeriesAligner": "ALIGN_MEAN"
+                    }
+                ]
+            }
+        }
+    ],
+    "alertStrategy": {
+        "autoClose": "86400s",
+        "notificationPrompts": [
+            "OPENED",
+            "CLOSED"
         ]
-      }
-    }
-  ],
-  "alertStrategy": {
-    "autoClose": "86400s",
-    "notificationPrompts": [
-      "OPENED",
-      "CLOSED"
-    ]
-  },
-  "combiner": "OR",
-  "enabled": true,
-  "notificationChannels": [],
-  "severity": "WARNING"
+    },
+    "combiner": "OR",
+    "enabled": true,
+    "notificationChannels": [
+        "projects/prj-monitoring-infra/notificationChannels/3383977001288891302",
+        "projects/prj-monitoring-infra/notificationChannels/5563533643990171168",
+        "projects/prj-monitoring-infra/notificationChannels/5662916481903944804"
+    ],
+    "severity": "WARNING"
 }
