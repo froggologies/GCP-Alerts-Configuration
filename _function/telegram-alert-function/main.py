@@ -37,7 +37,14 @@ def main(cloud_event):
         incident = message_data.get("incident", {})
 
         # --- Extract common data (mostly unchanged) ---
-        documentation = incident.get("documentation", {})
+        raw_documentation = incident.get("documentation", {})
+        if isinstance(raw_documentation, dict):
+            documentation_subject = raw_documentation.get("subject", "GCP Alert")
+            documentation_content = raw_documentation.get("content", "No documentation content provided.")
+        else:
+            documentation_subject = "GCP Alert"
+            documentation_content = str(raw_documentation) or "No documentation content provided."
+
         start_time_unix = incident.get("started_at", 0)
         start_time_str = datetime.fromtimestamp(
             start_time_unix, tz=timezone.utc
@@ -51,7 +58,7 @@ def main(cloud_event):
         project_id = incident.get("scoping_project_id", "N/A")
 
         project_link = f"https://console.cloud.google.com/?project={project_id}"
-        title = documentation.get("subject", "GCP Alert")  # Fallback title
+        title = documentation_subject
 
         policy_id = "N/A"
         condition_name_full = incident.get("condition", {}).get("name", "")
@@ -71,9 +78,7 @@ def main(cloud_event):
             else "N/A"
         )
 
-        documentation_content = documentation.get(
-            "content", "No documentation content provided."
-        )
+        documentation_content = documentation_content
 
         # --- Prepare Telegram Message (MarkdownV2) ---
         # Escape all dynamic string parts before inserting them into the Markdown template
