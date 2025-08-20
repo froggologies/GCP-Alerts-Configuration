@@ -53,9 +53,9 @@ def extract_incident_data(message_data: Dict[str, Any]) -> Dict[str, str]:
     condition_name = incident.get("condition_name")
 
     start_time_unix = incident.get("started_at", 0)
-    start_time_str = datetime.fromtimestamp(start_time_unix, tz=timezone(timedelta(hours=7))).strftime(
-        "%Y-%m-%d %H:%M:%S %Z"
-    )
+    start_time_str = datetime.fromtimestamp(
+        start_time_unix, tz=timezone(timedelta(hours=7))
+    ).strftime("%Y-%m-%d %H:%M:%S %Z")
 
     project_link = f"https://console.cloud.google.com/?project={project_id}"
 
@@ -76,7 +76,6 @@ def extract_incident_data(message_data: Dict[str, Any]) -> Dict[str, str]:
         "documentation_content": documentation_content,
         "incident_url": incident_url,
     }
-
 
 # Telegram Specific Helper
 def escape_markdown_v2(text: str) -> str:
@@ -105,21 +104,22 @@ def main(cloud_event):
         pubsub_message = base64.b64decode(cloud_event.data["message"]["data"]).decode(
             "utf-8"
         )
+
         logging.info(f"Pub/Sub message content: {pubsub_message}")
 
         # Parse the message as JSON
         message_data = json.loads(pubsub_message)
 
-        # --- Extract data using the helper function, passing the whole payload ---
+        # Extract data using the helper function, passing the whole payload
         details = extract_incident_data(message_data)
 
-        # --- Prepare Telegram Message (MarkdownV2) ---
+        # Prepare Telegram Message (MarkdownV2)
         # Escape all dynamic string parts before inserting them into the Markdown template
         title = escape_markdown_v2(details["title"])
         policy_name = escape_markdown_v2(details["policy_name"])
         severity = escape_markdown_v2(details["severity"])
         condition_name = escape_markdown_v2(details["condition_name"])
-        start_time_str = escape_markdown_v2(details["start_time_str"])
+        start_time = escape_markdown_v2(details["start_time_str"])
         project_id = escape_markdown_v2(details["project_id"])
         summary = escape_markdown_v2(details["summary"])
         documentation_content = escape_markdown_v2(details["documentation_content"])
@@ -128,19 +128,19 @@ def main(cloud_event):
         message_lines = [
             f"*{title}*\n",
             (
-                f"*Policy:* [{policy_name}]({details['policy_link']})"
+                f"*Policy:* [{policy_name}]({details["policy_link"]})"
                 if details["policy_link"] != "https://policy-not-found"
                 else f"*Policy:* {policy_name}"
             ),
             f"*Severity:* {severity}",
             f"*Condition:* {condition_name}",
-            f"*Start Time:* {start_time_str}",
-            f"*Project:* [{project_id}]({details['project_link']})",
+            f"*Start time:* {start_time}",
+            f"*Project:* [{project_id}]({details["project_link"]})",
             "\n*Summary:*",
             summary,
-            "\n*Policy Documentation:*",
+            "\n*Policy documentation:*",
             documentation_content,
-            f"\n[View incident]({details['incident_url']})",
+            f"\n[View incident]({details["incident_url"]})",
         ]
 
         telegram_message_text = "\n".join(
@@ -155,7 +155,7 @@ def main(cloud_event):
             logging.error("BOT_TOKEN or GROUP_CHAT_ID environment variables not set.")
             return
 
-        # --- Construct Telegram API URL and Payload ---
+        # Construct Telegram API URL and Payload
         telegram_api_url = f"https://api.telegram.org/bot{bot_token}/sendMessage"
         telegram_payload = {
             "chat_id": chat_id,
@@ -168,7 +168,7 @@ def main(cloud_event):
             f"Sending to Telegram Chat ID {chat_id}. Payload: {telegram_payload}"
         )
 
-        # --- Send the payload to Telegram ---
+        # Send the payload to Telegram
         response = requests.post(telegram_api_url, json=telegram_payload)
         response.raise_for_status()  # Raises an HTTPError for bad responses
 
