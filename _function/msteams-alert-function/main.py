@@ -1,73 +1,102 @@
 import base64
 import json
-import os
-import requests  # type: ignore
-import functions_framework  # type: ignore
-from datetime import datetime, timezone
 import logging
+import os
+from datetime import datetime, timezone, timedelta
+from typing import Any, Dict
 
+import functions_framework  # type: ignore
+import requests  # type: ignore
 
 # Imports the Cloud Logging client library
 from google.cloud import logging as cloud_logging
+
+
+# Data Extraction Helper
+def extract_incident_data(message_data: Dict[str, Any]) -> Dict[str, str]:
+    """
+    Parses the full GCP Alerting webhook payload and extracts key information from the 'incident' field.
+
+    Args:
+        message_data: The full decoded and parsed JSON payload from the Pub/Sub message.
+
+    Returns:
+        A dictionary containing structured and processed information from the incident.
+    """
+
+    incident = message_data.get("incident")
+
+    # Extract documentation
+    if message_data.get("version") == "test":
+        title = "Test Alert"
+        documentation_content = incident.get("documentation")
+    else:
+        title = incident.get("documentation", {}).get("subject", "GCP Alert")
+        documentation_content = incident.get("documentation", {}).get("content", "")
+
+    policy_name = incident.get("policy_name")
+
+    policy_id = ""
+    condition_full_name = incident.get("condition").get("name")
+    if "/alertPolicies/" in condition_full_name:
+        policy_id = condition_full_name.split("/alertPolicies/")[1].split("/")[0]
+
+    project_id = incident.get("scoping_project_id")
+    policy_link = (
+        f"https://console.cloud.google.com/monitoring/alerting/policies/{policy_id}?project={project_id}"
+        if policy_id != ""
+        else "https://policy-not-found"
+    )
+
+    severity = incident.get("severity", "No severity")
+    condition_name = incident.get("condition_name")
+
+    start_time_unix = incident.get("started_at", 0)
+    start_time_str = datetime.fromtimestamp(
+        start_time_unix, tz=timezone(timedelta(hours=7))
+    ).strftime("%Y-%m-%d %H:%M:%S %Z")
+
+    project_link = f"https://console.cloud.google.com/?project={project_id}"
+
+    summary = incident.get("summary")
+
+    incident_url = incident.get("url")
+
+    return {
+        "title": title,
+        "policy_name": policy_name,
+        "policy_link": policy_link,
+        "severity": severity,
+        "condition_name": condition_name,
+        "start_time_str": start_time_str,
+        "project_id": project_id,
+        "project_link": project_link,
+        "summary": summary,
+        "documentation_content": documentation_content,
+        "incident_url": incident_url,
+    }
 
 
 @functions_framework.cloud_event
 def main(cloud_event):
     # Instantiates a client
     log_client = cloud_logging.Client()
-
-    # Retrieves a Cloud Logging handler based on the environment
-    # you're running in and integrates the handler with the
-    # Python logging module. By default this captures all logs
-    # at INFO level and higher
     log_client.setup_logging()
 
-    # Configure logging
-    logging.basicConfig(level=logging.INFO)
-
+    pubsub_message = ""  # Initialize to ensure it's available in error logs
     try:
         # Decode the incoming Pub/Sub message
         pubsub_message = base64.b64decode(cloud_event.data["message"]["data"]).decode(
             "utf-8"
         )
 
-        logging.info(
-            f"Pub/Sub message content: {pubsub_message}"
-        )  # Log the message content
+        logging.info(f"Pub/Sub message content: {pubsub_message}")
 
         # Parse the message as JSON
         message_data = json.loads(pubsub_message)
 
-        # Extract relevant fields for the message text
-        incident = message_data.get("incident", {})
-        documentation = incident.get("documentation", {})
-        start_time = datetime.fromtimestamp(
-            incident.get("started_at", 0), tz=timezone.utc
-        ).strftime("%Y-%m-%d %H:%M:%S UTC")
-
-        # Extract details
-        severity = incident.get("severity", {})
-        condition_name = incident.get("condition_name", {})
-        incident_url = incident.get("url", {})
-        policy_name = incident.get("policy_name", {})
-        summary = incident.get("summary", {})
-        project_id = incident.get("scoping_project_id", {})
-
-        project_link = f"https://console.cloud.google.com/?project={project_id}"
-
-        title = documentation.get("subject", {})
-
-        # Extract policy ID from condition.name
-        condition_name_full = incident.get("condition", {}).get("name", "")
-        policy_id = condition_name_full.split("/alertPolicies/")[1].split("/")[0]
-
-        # Generate the policy link
-        policy_link = f"https://console.cloud.google.com/monitoring/alerting/policies/{policy_id}?project={project_id}"
-
-        # Extract documentation
-        documentation_content = documentation.get(
-            "content", "No documentation content provided"
-        )
+        # Extract data using the helper function, passing the whole payload
+        details = extract_incident_data(message_data)
 
         # Construct the payload
         payload = {
@@ -82,34 +111,39 @@ def main(cloud_event):
                         "body": [
                             {
                                 "type": "TextBlock",
-                                "text": f"**{title}**",
+                                "text": f"**{details["title"]}**",
                                 "wrap": True,
                                 "size": "medium",
                                 "weight": "bolder",
                             },
                             {
                                 "type": "TextBlock",
-                                "text": f"**Policy:** [{policy_name}]({policy_link})",
+                                "text": (
+                                    f"*Policy:* [{details["policy_name"]}]({details["policy_link"]})"
+                                    if details["policy_link"]
+                                    != "https://policy-not-found"
+                                    else f"*Policy:* {details["policy_name"]}"
+                                ),
                                 "wrap": True,
                             },
                             {
                                 "type": "TextBlock",
-                                "text": f"**Severity:** {severity}",
+                                "text": f"**Severity:** {details["severity"]}",
                                 "wrap": True,
                             },
                             {
                                 "type": "TextBlock",
-                                "text": f"**Condition:** {condition_name}",
+                                "text": f"**Condition:** {details["condition_name"]}",
                                 "wrap": True,
                             },
                             {
                                 "type": "TextBlock",
-                                "text": f"**Start Time:** {start_time}",
+                                "text": f"**Start time:** {details["start_time_str"]}",
                                 "wrap": True,
                             },
                             {
                                 "type": "TextBlock",
-                                "text": f"**Project:** [{project_id}]({project_link})",
+                                "text": f"**Project:** [{details["project_id"]}]({details["project_link"]})",
                                 "wrap": True,
                             },
                             {
@@ -119,7 +153,7 @@ def main(cloud_event):
                             },
                             {
                                 "type": "TextBlock",
-                                "text": summary,
+                                "text": details["summary"],
                                 "wrap": True,
                             },
                             {
@@ -132,7 +166,7 @@ def main(cloud_event):
                             },
                             {
                                 "type": "TextBlock",
-                                "text": documentation_content,
+                                "text": details["documentation_content"],
                                 "wrap": True,
                             },
                             {
@@ -141,7 +175,7 @@ def main(cloud_event):
                                     {
                                         "type": "Action.OpenUrl",
                                         "title": "View Incident",
-                                        "url": incident_url,
+                                        "url": details["incident_url"],
                                     }
                                 ],
                             },
@@ -158,19 +192,34 @@ def main(cloud_event):
             if item is not None
         ]
 
-        logging.info(f"Constructed payload successfully: {payload}")
+        # Get MSTeams webhook URL from 
+        webhook_url = os.getenv("WEBHOOK_URL")
 
-        # Determine the webhook URL based on severity
-        webhook_url = (
-            os.getenv("WEBHOOK_URL_ALERT")
-            if severity in ["Critical", "Warning"]
-            else os.getenv("WEBHOOK_URL_INFO")
+        if not webhook_url:
+            logging.error("WEBHOOK_URL environment variables not set.")
+            return
+
+        logging.info(
+            f"Sending to Microsoft Teams webhook URL {webhook_url}. Payload: {payload}"
         )
 
         # Send the payload to the webhook
         response = requests.post(webhook_url, json=payload)
-        response.raise_for_status()
+        response.raise_for_status()  # Raises an HTTPError for bad responses
 
-        logging.info(f"Successfully sent data to webhook: {response.status_code}")
+        logging.info(
+            f"Successfully sent data to MSTeams webhook: {response.status_code} - {response.text}"
+        )
+
+    except json.JSONDecodeError as e:
+        logging.error(
+            f"Error decoding Pub/Sub message JSON: {e}. Message: {pubsub_message}"
+        )
+    except requests.exceptions.HTTPError as e:
+        logging.error(
+            f"HTTP error sending to MSTeams webhook: {e}. Response: {e.response.text if e.response else 'No response'}"
+        )
     except Exception as e:
-        logging.error(f"Error processing Pub/Sub message: {e}")
+        logging.error(
+            f"Error processing Pub/Sub message for MSTeams webhook: {e}", exc_info=True
+        )
